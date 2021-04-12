@@ -1,2 +1,9 @@
-package com.oj.commonpolinoj.dto;public class ProblemPullDTO {
+package com.oj.commonpolinoj.dto;
+
+import lombok.Data;
+
+@Data
+public class ProblemPullDTO {
+    String source;
+    String sourceId;
 }

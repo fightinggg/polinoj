@@ -11,6 +11,7 @@ public enum OJErrorCode {
 
     // 000 - 000 common
     UNKNOWN_ERROR("000-000-000-000", "未知异常"),
+    UN_SUPPORT_ERROR("000-000-000-001", "对不起暂不支持"),
 
     // 000 - 001 User Service
     CREATE_USER_FAILED("000-001-000-000", "创建用户失败"),

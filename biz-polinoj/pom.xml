@@ -38,6 +38,11 @@
 			<groupId>com.oj</groupId>
 			<artifactId>common-polinoj</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.oj</groupId>
+			<artifactId>sal-polinoj</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

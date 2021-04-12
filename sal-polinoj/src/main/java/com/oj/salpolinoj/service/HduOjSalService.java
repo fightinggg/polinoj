@@ -1,12 +1,16 @@
 package com.oj.salpolinoj.service;
 
 import com.github.houbb.html2md.util.Html2MdHelper;
-import com.oj.salpolinoj.service.pojo.HduProblemDTO;
-import com.oj.salpolinoj.service.pojo.HduSampleDTO;
+import com.oj.commonpolinoj.dto.ProblemDTO;
+import com.oj.commonpolinoj.dto.SampleDTO;
+import com.oj.commonpolinoj.dto.SubmitResultDTO;
+import com.oj.commonpolinoj.enums.OjName;
+import com.oj.commonpolinoj.enums.SubmitStatus;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,16 +20,16 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class HduSalService {
-    public HduProblemDTO copyProblem(String id) {
+public class HduOjSalService {
+    public ProblemDTO getProblem(String id) {
 
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .build();
-            Request request = new Request.Builder()
-                    .url("http://acm.hdu.edu.cn/showproblem.php?pid=" + id)
-                    .method("GET", null)
-                    .build();
-        try (Response response = client.newCall(request).execute()){
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("http://acm.hdu.edu.cn/showproblem.php?pid=" + id)
+                .method("GET", null)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
             String html = response.body().string();
             Document document = Jsoup.parse(html);
 
@@ -39,10 +43,15 @@ public class HduSalService {
                     })
                     .collect(Collectors.toList());
 
-            HduProblemDTO hduProblemDTO = new HduProblemDTO();
-            hduProblemDTO.setHduSampleDTOList(new ArrayList<>());
+            ProblemDTO problemDTO = new ProblemDTO();
+            problemDTO.setSampleDTOList(new ArrayList<>());
 
-            final HduSampleDTO[] hduSampleDTO = new HduSampleDTO[1];
+
+            // title
+            String title = document.body().child(1).child(0).child(3).child(0).child(0).text();
+            problemDTO.setTitle(title);
+
+            final SampleDTO[] sampleDTO = new SampleDTO[1];
             panelContent.stream()
                     .forEach(o -> {
                         String k = o[0];
@@ -51,40 +60,49 @@ public class HduSalService {
 
                         switch (k) {
                             case "Problem Description":
-                                hduProblemDTO.setDescription(v);
+                                problemDTO.setDescription(v);
                                 break;
                             case "Input":
-                                hduProblemDTO.setInput(v);
+                                problemDTO.setInput(v);
                                 break;
                             case "Output":
-                                hduProblemDTO.setOutput(v);
+                                problemDTO.setOutput(v);
                                 break;
                             case "Sample Input":
-                                if (hduSampleDTO[0] != null) {
+                                if (sampleDTO[0] != null) {
                                     throw new RuntimeException("e");
                                 }
-                                hduSampleDTO[0] = new HduSampleDTO();
-                                hduSampleDTO[0].setInput(raw);
+                                sampleDTO[0] = new SampleDTO();
+                                sampleDTO[0].setInput(raw);
                                 break;
                             case "Sample Output":
-                                if (hduSampleDTO[0] == null) {
-                                    hduSampleDTO[0] = new HduSampleDTO();
+                                if (sampleDTO[0] == null) {
+                                    sampleDTO[0] = new SampleDTO();
                                 }
-                                hduSampleDTO[0].setOutput(raw);
-                                hduProblemDTO.getHduSampleDTOList().add(hduSampleDTO[0]);
-                                hduSampleDTO[0] = null;
+                                sampleDTO[0].setOutput(raw);
+                                problemDTO.getSampleDTOList().add(sampleDTO[0]);
+                                sampleDTO[0] = null;
                                 break;
                             case "Author":
-                                hduProblemDTO.setAuthor(v);
+                                problemDTO.setAuthor(v);
                                 break;
                             case "Source":
-                                hduProblemDTO.setSource(v);
+                                problemDTO.setSource(v);
                                 break;
 
                         }
                     });
 
-            return hduProblemDTO;
+
+            if (problemDTO.getSource() == null) {
+                problemDTO.setSource(OjName.HDU_NAME);
+            }
+
+            if(problemDTO.getSourceId()==null){
+                problemDTO.setSourceId(id);
+            }
+
+            return problemDTO;
         } catch (Exception e) {
             log.error("submit to hdu failed ", e);
             return null;
@@ -92,7 +110,7 @@ public class HduSalService {
     }
 
 
-    public String submitCode(String code, String id) {
+    public Boolean submitCode(String code, String id) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -109,9 +127,48 @@ public class HduSalService {
                     .addHeader("Cookie", "PHPSESSID=cg7u6itif0p3402mbh6bsjc9a1; exesubmitlang=0")
                     .build();
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            log.info("submitCode result: {}", response.body().string());
+            return true;
         } catch (Exception e) {
             log.error("submit to hdu failed ", e);
+            return null;
+        }
+    }
+
+    public List<SubmitResultDTO> getProblemSubmitResult(String problemId) {
+        try {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            Request request = new Request.Builder()
+                    .url("http://acm.hdu.edu.cn/status.php?first=&pid=" + problemId + "&user=&lang=0&status=0")
+                    .method("GET", null)
+                    .addHeader("Cookie", "PHPSESSID=cg7u6itif0p3402mbh6bsjc9a1; exesubmitlang=0")
+                    .build();
+            try (Response response = client.newCall(request).execute()) {
+                String html = response.body().string();
+                Document document = Jsoup.parse(html);
+                Elements table = document.getElementsByClass("table_text").get(0).child(0).children();
+                // Run ID	Submit Time	Judge Status	Pro.ID	Exe.Time	Exe.Memory	Code Len.	Language	Author
+                return table.subList(2, table.size())
+                        .stream()
+                        .map(o -> {
+                            Elements children = o.children();
+                            SubmitResultDTO submitResultDTO = new SubmitResultDTO();
+                            submitResultDTO.setSubmitTime(children.get(1).html());
+
+                            String status = Html2MdHelper.convert(children.get(2).html());
+                            submitResultDTO.setStatus(SubmitStatus.converter(status).getTxt());
+                            submitResultDTO.setProblemId(Html2MdHelper.convert(children.get(3).text()));
+                            submitResultDTO.setExecTime(children.get(4).html());
+                            submitResultDTO.setExecMemory(children.get(5).html());
+                            submitResultDTO.setUser(children.get(8).text());
+                            submitResultDTO.setProblemSource("hdu");
+                            return submitResultDTO;
+                        })
+                        .collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            log.error("getResult from hdu failed ", e);
             return null;
         }
     }

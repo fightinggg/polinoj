@@ -1,6 +1,9 @@
-package com.oj.bizpolinoj.domain.dto;
+package com.oj.commonpolinoj.dto;
 
+import lombok.Data;
+
+@Data
 public class ProblemGetDTO {
-    String problemId;
+    Long problemId;
     String operatorUser;
 }

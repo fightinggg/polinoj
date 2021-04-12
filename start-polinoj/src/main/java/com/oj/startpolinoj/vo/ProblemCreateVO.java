@@ -1,6 +1,6 @@
-package com.oj.commonpolinoj.vo;
+package com.oj.startpolinoj.vo;
 
-import com.oj.commonpolinoj.dto.Sample;
+import com.oj.commonpolinoj.dto.SampleDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -10,10 +10,10 @@ public class ProblemCreateVO {
     String description;
     String input;
     String output;
-    List<Sample> sampleList;
+    List<SampleDTO> sampleDTOList;
     String source;
     String author;
     Long time;
     Long memory;
-    List<Sample> testSampleList;
+    List<SampleDTO> testSampleDTOList;
 }

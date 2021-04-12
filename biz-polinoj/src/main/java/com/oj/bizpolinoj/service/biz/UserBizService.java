@@ -1,6 +1,6 @@
 package com.oj.bizpolinoj.service.biz;
 
-import com.oj.bizpolinoj.domain.dto.UserDTO;
+import com.oj.commonpolinoj.dto.UserDTO;
 import com.oj.bizpolinoj.domain.param.CreateUserDTO;
 import com.oj.bizpolinoj.domain.param.GetUserSlatDTO;
 

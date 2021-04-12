@@ -3,7 +3,9 @@ package com.oj.commonpolinoj.dto;
 import lombok.Data;
 
 @Data
-public class Sample {
+public class SampleDTO {
+    Long id;
+    String problemId;
     String input;
     String output;
 }

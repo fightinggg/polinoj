@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class PageVO<T> {
+public class PageResult<T> {
     List<T> list;
     Integer pageSize;
     Integer pageIndex;

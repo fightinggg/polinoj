@@ -1,4 +1,4 @@
-package com.oj.bizpolinoj.domain.dto;
+package com.oj.commonpolinoj.dto;
 
 import lombok.Data;
 

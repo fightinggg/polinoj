@@ -1,10 +1,9 @@
-package com.oj.commonpolinoj.vo;
+package com.oj.startpolinoj.vo;
 
 import lombok.Data;
 
 @Data
 public class ProblemGetVO {
-    String problemId;
+    Long problemId;
     String operatorUser;
-    String source;
 }
