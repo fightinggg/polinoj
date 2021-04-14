@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oj.dalpolinoj.mapper.SubmitMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.oj.dalpolinoj.domin.Submit">
+        <id column="id" property="id" />
+        <result column="problemId" property="problemId" />
+        <result column="source_submit_id" property="sourceSubmitId" />
+        <result column="code" property="code" />
+        <result column="user" property="user" />
+        <result column="status" property="status" />
+        <result column="exec_time" property="execTime" />
+        <result column="exec_memory" property="execMemory" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, problemId, source_submit_id, code, user, status, exec_time, exec_memory
+    </sql>
+
+</mapper>

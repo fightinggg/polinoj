@@ -1,6 +1,7 @@
 package com.oj.bizpolinoj.service.atom.impl;
 
-import com.oj.bizpolinoj.converter.ProblemConverter;
+import com.oj.commonpolinoj.enums.SubmitStatus;
+import com.oj.dalpolinoj.service.SubmitDAOService;
 import com.oj.commonpolinoj.OJErrorCode;
 import com.oj.commonpolinoj.OJException;
 import com.oj.commonpolinoj.PageResult;
@@ -11,7 +12,9 @@ import com.oj.dalpolinoj.service.ProblemDAOService;
 import com.oj.salpolinoj.service.HduOjSalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +25,9 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Autowired
     ProblemDAOService problemDAOService;
+
+    @Autowired
+    SubmitDAOService submitDAOService;
 
 
     public ProblemDTO getProblem(ProblemGetDTO problemGetDTO) {
@@ -34,27 +40,41 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public Boolean submitProblem(ProblemSubmitDTO problemSubmitDTO) {
-        if (OjName.HDU_NAME.equals(problemSubmitDTO.getSource())) {
-            return hduOjSalService.submitCode(
-                    problemSubmitDTO.getCode(),
-                    problemSubmitDTO.getProblemId());
+    public SubmitDTO submitProblem(ProblemSubmitDTO problemSubmitDTO) {
+        ProblemGetDTO problemGetDTO = new ProblemGetDTO();
+        problemGetDTO.setProblemId(problemSubmitDTO.getProblemId());
+        ProblemDTO problem = getProblem(problemGetDTO);
+        if (OjName.HDU_NAME.equals(problem.getSource())) {
+            SubmitDTO submitDTO = hduOjSalService.submitCode(problemSubmitDTO.getCode(),
+                    problem.getSourceId());
+            submitDTO.setProblemId(problemSubmitDTO.getProblemId());
+            submitDTO.setCode(problemSubmitDTO.getCode());
+            return submitDAOService.createSubmitResultDTO(submitDTO);
         } else {
             throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);
         }
     }
 
     @Override
-    public PageResult<SubmitResultDTO> getProblemSubmitResult(SubmitResultGetDTO submitResultGetDTO) {
-        if (OjName.HDU_NAME.equals(submitResultGetDTO.getSource())) {
-            List<SubmitResultDTO> problemSubmitResult =
-                    hduOjSalService.getProblemSubmitResult(submitResultGetDTO.getProblemId());
-            PageResult<SubmitResultDTO> submitResultDTOPageResult = new PageResult<>();
-            submitResultDTOPageResult.setList(problemSubmitResult);
-            submitResultDTOPageResult.setPageIndex(1);
-            submitResultDTOPageResult.setPageSize(10);
-            submitResultDTOPageResult.setTotal(1000);
-            return submitResultDTOPageResult;
+    @Transactional(rollbackFor = Exception.class)
+    public PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO) {
+        if (OjName.HDU_NAME.equals(submitPageDTO.getSource())) {
+
+            PageResult<SubmitDTO> submitDTOPageResult = submitDAOService.pageSubmit(submitPageDTO);
+            for (int i = 0; i < submitDTOPageResult.getList().size(); i++) {
+                SubmitDTO submitDTO = submitDTOPageResult.getList().get(i);
+                if (SubmitStatus.PENDING.getCode().equals(submitDTO.getStatus())) {
+                    SubmitDTO newStatus = hduOjSalService.getSubmitById(submitDTO.getSourceSubmitId());
+                    SubmitDTO oldStatus = submitDAOService.getSubmitBySubmitId(submitDTO.getSourceSubmitId());
+                    newStatus.setId(oldStatus.getId());
+                    if (!SubmitStatus.PENDING.getCode().equals(newStatus.getStatus())) {
+                        newStatus = submitDAOService.updateSubmit(newStatus);
+                        submitDTOPageResult.getList().set(i, newStatus);
+                    }
+                }
+            }
+
+            return submitDTOPageResult;
         } else {
             throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);
         }
@@ -63,5 +83,26 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public PageResult<ProblemDTO> pageProblem(ProblemPageDTO problemPageDTO) {
         return problemDAOService.pageProblem(problemPageDTO);
+    }
+
+    @Override
+    public PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
+        if (OjName.HDU_NAME.equals(problemRemotePageDTO.getSource())) {
+            int size = problemRemotePageDTO.getPageSize();
+            int index = problemRemotePageDTO.getPageIndex();
+            List<ProblemDTO> problemDTOList = new ArrayList<>();
+            for (int id = 0; id < size; id++) {
+                ProblemDTO problem = hduOjSalService.getProblem(String.valueOf(1000 + id + size * (index - 1)));
+                problemDTOList.add(problem);
+            }
+            PageResult<ProblemDTO> result = new PageResult<>();
+            result.setPageSize(size);
+            result.setPageIndex(index);
+            result.setList(problemDTOList);
+            result.setTotal(5000);
+            return result;
+        } else {
+            throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);
+        }
     }
 }

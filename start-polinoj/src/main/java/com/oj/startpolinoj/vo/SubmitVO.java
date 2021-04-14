@@ -3,13 +3,13 @@ package com.oj.startpolinoj.vo;
 import lombok.Data;
 
 @Data
-public class SubmitResultVO {
-    String problemSource;
-    String problemId;
+public class SubmitVO {
+    Long id;
+    Long problemId;
     String user;
     String status;
     String code;
     String submitTime;
-    String execTime;
-    String execMemory;
+    Long execTime;
+    Long execMemory;
 }

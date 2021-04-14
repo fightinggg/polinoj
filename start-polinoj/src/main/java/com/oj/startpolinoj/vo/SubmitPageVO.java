@@ -3,11 +3,11 @@ package com.oj.startpolinoj.vo;
 import lombok.Data;
 
 @Data
-public class SubmitResultGetVO {
+public class SubmitPageVO {
     String source;
-    String problemId;
+    Long problemId;
     String user;
     String status;
-    String pageIndex;
-    String pageSize;
+    Integer pageIndex;
+    Integer pageSize;
 }

@@ -8,9 +8,11 @@ public interface ProblemService {
 
     ProblemDTO createProblem(ProblemCreateDTO problemCreateDTO);
 
-    Boolean submitProblem(ProblemSubmitDTO problemSubmitDTO);
+    SubmitDTO submitProblem(ProblemSubmitDTO problemSubmitDTO);
 
-    PageResult<SubmitResultDTO> getProblemSubmitResult(SubmitResultGetDTO submitResultGetDTO);
+    PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO);
 
     PageResult<ProblemDTO> pageProblem(ProblemPageDTO problemPageDTO);
+
+    PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO);
 }

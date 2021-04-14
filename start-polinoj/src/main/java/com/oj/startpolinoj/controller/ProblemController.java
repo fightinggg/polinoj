@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/problem")
+@RequestMapping("/api/problem")
 public class ProblemController {
 
     @Autowired
@@ -43,24 +43,32 @@ public class ProblemController {
     }
 
     @PostMapping("/submit")
-    Boolean submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO) {
+    SubmitDTO submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO) {
         ProblemSubmitDTO problemSubmitDTO = ProblemConverter.toProblemSubmitDTO(problemSubmitVO);
         return problemBizService.submitProblem(problemSubmitDTO);
     }
 
 
     @GetMapping("/status")
-    PageResult<SubmitResultVO> getProblemSubmitResult(SubmitResultGetVO submitResultGetVO) {
-        SubmitResultGetDTO submitResultGetDTO = ProblemConverter.toSubmitResultGetDTO(submitResultGetVO);
-        PageResult<SubmitResultDTO> submitResultDTOs = problemBizService.getProblemSubmitResult(submitResultGetDTO);
+    PageResult<SubmitVO> getProblemSubmitResult(SubmitPageVO submitPageVO) {
+        SubmitPageDTO submitPageDTO = ProblemConverter.toSubmitResultGetDTO(submitPageVO);
+        PageResult<SubmitDTO> submitResultDTOs = problemBizService.getProblemSubmitResult(submitPageDTO);
         return ProblemConverter.toSubmitResultVOPage(submitResultDTOs);
     }
 
 
     @PostMapping("/pull")
-    ProblemVO pullProblem(ProblemPullVO problemPullVO) {
+    ProblemVO pullProblem(@RequestBody ProblemPullVO problemPullVO) {
         ProblemPullDTO problemPullDTO = ProblemConverter.toProblemPullDTO(problemPullVO);
         ProblemDTO problemDTO = problemBizService.pullProblem(problemPullDTO);
         return ProblemConverter.toProblemVO(problemDTO);
+    }
+
+
+    @PostMapping("/remote")
+    PageResult<ProblemVO> remoteProblem(@RequestBody ProblemRemotePageVO problemRemotePageVO){
+        ProblemRemotePageDTO problemRemotePageDTO = ProblemConverter.toProblemRemotePageDTO(problemRemotePageVO);
+        PageResult<ProblemDTO> remoteProblem = problemBizService.getRemoteProblem(problemRemotePageDTO);
+        return ProblemConverter.toProblemPageVO(remoteProblem);
     }
 }

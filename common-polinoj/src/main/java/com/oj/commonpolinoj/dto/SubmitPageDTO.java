@@ -3,11 +3,11 @@ package com.oj.commonpolinoj.dto;
 import lombok.Data;
 
 @Data
-public class SubmitResultGetDTO {
+public class SubmitPageDTO {
     String source;
-    String problemId;
+    Long problemId;
     String user;
     String status;
-    String pageIndex;
-    String pageSize;
+    Integer pageIndex;
+    Integer pageSize;
 }

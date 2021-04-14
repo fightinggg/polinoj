@@ -4,8 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProblemSubmitDTO {
-    String problemId;
-    String source;
+    Long problemId;
     String code;
     String lang;
 }
