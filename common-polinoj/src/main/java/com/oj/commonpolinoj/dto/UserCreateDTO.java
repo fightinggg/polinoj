@@ -3,9 +3,7 @@ package com.oj.commonpolinoj.dto;
 import lombok.Data;
 
 @Data
-public class UserDTO {
-
-    private Long id;
+public class UserCreateDTO {
 
     private String username;
 

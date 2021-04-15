@@ -13,21 +13,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     <T> HttpResult<T> handlerException(Exception e) {
         log.error("http request handler failed: ", e);
-
-        HttpResult<T> httpResult = new HttpResult<>();
-        httpResult.setSuccess(false);
-        OJErrorCode ojErrorCode = OJErrorCode.UNKNOWN_ERROR;
-        httpResult.setCode(ojErrorCode.getCode());
-        httpResult.setMsg(ojErrorCode.getMsg() + "\n" + e.getMessage());
-        return httpResult;
+        return HttpResult.failed(OJErrorCode.UNKNOWN_ERROR);
     }
 
     @ExceptionHandler(OJException.class)
     <T> HttpResult<T> handlerException(OJException ojException) {
-        HttpResult<T> httpResult = new HttpResult<>();
-        httpResult.setSuccess(false);
-        httpResult.setCode(ojException.getCode());
-        httpResult.setMsg(ojException.getMsg());
-        return httpResult;
+        log.error("http request handler failed: ", ojException);
+        return HttpResult.failed(ojException.getCode(), ojException.getMsg());
     }
 }

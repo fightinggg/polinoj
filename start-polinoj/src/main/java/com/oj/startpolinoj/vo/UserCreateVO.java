@@ -1,11 +1,9 @@
-package com.oj.commonpolinoj.dto;
+package com.oj.startpolinoj.vo;
 
 import lombok.Data;
 
 @Data
-public class UserDTO {
-
-    private Long id;
+public class UserCreateVO {
 
     private String username;
 
