@@ -6,4 +6,5 @@ RUN mvn package -Dmaven.test.skip=true -q
 FROM openjdk:8-jre
 COPY --from=0 /app/start-polinoj/target/*.jar /app/main.jar
 ENV JAVA_PARAM ''
-CMD "java" "-jar" "/app/main.jar" $JAVA_PARAM
+ENV JVM_PARAM ''
+CMD "java"  $JVM_PARAM "-jar" "/app/main.jar" $JAVA_PARAM
