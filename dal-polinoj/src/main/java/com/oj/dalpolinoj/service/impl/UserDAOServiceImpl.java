@@ -32,8 +32,17 @@ public class UserDAOServiceImpl implements UserDAOService {
 
     @Override
     public UserDTO updateUser(UserUpdateDTO userUpdateDTO) {
+
+        if (userUpdateDTO.getId() == 1) {
+            throw OJException.buildOJException(OJErrorCode.ADMIN_ACCOUNT_COLUD_NOT_CNAHGE);
+        }
+
+
         User user = UserConverter.toUserDO(userUpdateDTO);
-        userMapper.updateById(user);
+        int i = userMapper.updateById(user);
+        if (i != 1) {
+            throw OJException.buildOJException(OJErrorCode.UNKNOWN_ERROR);
+        }
         return UserConverter.toUserDTO(user);
     }
 

@@ -16,11 +16,13 @@ public enum OJErrorCode {
     // 000 - 001 User Service
     CREATE_USER_FAILED("000-001-000-000", "创建用户失败"),
     NO_SUCH_USER("000-001-000-001", "没有这个用户"),
+    ADMIN_ACCOUNT_COLUD_NOT_CNAHGE("000-001-000-003", "管理员账号不可修改"),
+
 
     // 000 - 002 login Service
     LOGIN_FAILED("000-002-000-000", "登录失败"),
-    NO_LOGIN("000-002-000-001", "没有登录");
 
+    NO_LOGIN("000-002-000-001", "没有登录");
 
     String code;
 

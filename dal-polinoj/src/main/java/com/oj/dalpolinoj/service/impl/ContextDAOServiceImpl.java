@@ -7,6 +7,7 @@ import com.oj.commonpolinoj.OJException;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.*;
 import com.oj.dalpolinoj.converter.ContextConverter;
+import com.oj.dalpolinoj.converter.ContextProblemConverter;
 import com.oj.dalpolinoj.domin.Context;
 import com.oj.dalpolinoj.domin.ContextProblem;
 import com.oj.dalpolinoj.mapper.ContextMapper;
@@ -15,6 +16,9 @@ import com.oj.dalpolinoj.service.ContextDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContextDAOServiceImpl implements ContextDAOService {
@@ -37,8 +41,8 @@ public class ContextDAOServiceImpl implements ContextDAOService {
 
         for (Long id : createDTO.getProblemId()) {
             ContextProblem contextProblem = new ContextProblem();
-            contextProblem.setProblemId(context.getId());
-            contextProblem.setContextId(id);
+            contextProblem.setProblemId(id);
+            contextProblem.setContextId(context.getId());
 
             contextProblemMapper.insert(contextProblem);
         }
@@ -62,7 +66,15 @@ public class ContextDAOServiceImpl implements ContextDAOService {
         QueryWrapper<Context> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(contextGetDTO.getId() != null, "id", contextGetDTO.getId());
         Context context = contextMapper.selectOne(queryWrapper);
-        return ContextConverter.toDTO(context);
+        ContextDTO contextDTO = ContextConverter.toDTO(context);
+
+        QueryWrapper<ContextProblem> contextProblemQueryWrapper = new QueryWrapper<>();
+        contextProblemQueryWrapper.eq("context_id", contextDTO.getId());
+        List<ContextProblem> contextProblems = contextProblemMapper.selectList(contextProblemQueryWrapper);
+        List<Long> ids = contextProblems.stream().map(ContextProblem::getProblemId).collect(Collectors.toList());
+        contextDTO.setProblemId(ids);
+
+        return contextDTO;
     }
 
     @Override

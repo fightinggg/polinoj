@@ -5,13 +5,13 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.oj.dalpolinoj.domin.ContextProblem">
         <id column="id" property="id" />
-        <result column="problemId" property="problemId" />
-        <result column="contextId" property="contextId" />
+        <result column="problem_id" property="problemId" />
+        <result column="context_id" property="contextId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, problemId, contextId
+        id, problem_id, context_id
     </sql>
 
 </mapper>

@@ -48,8 +48,8 @@ public class ContextController {
         return HttpResult.success(contextVO);
     }
 
-    @GetMapping("/page")
-    HttpResult<PageResult<ContextVO>> pageContext(ContextPageVO pageDTO) {
+    @PostMapping("/page")
+    HttpResult<PageResult<ContextVO>> pageContext(@RequestBody ContextPageVO pageDTO) {
         ContextPageDTO contextPageDTO = ContextConverter.toPageDTO(pageDTO);
         PageResult<ContextDTO> pageResult = contextBizService.pageContext(contextPageDTO);
         PageResult<ContextVO> contextVO = ContextConverter.toPageVO(pageResult);

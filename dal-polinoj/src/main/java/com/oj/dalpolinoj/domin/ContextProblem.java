@@ -3,7 +3,6 @@ package com.oj.dalpolinoj.domin;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,10 +30,8 @@ public class ContextProblem implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @TableField("problemId")
     private Long problemId;
 
-    @TableField("contextId")
     private Long contextId;
 
 

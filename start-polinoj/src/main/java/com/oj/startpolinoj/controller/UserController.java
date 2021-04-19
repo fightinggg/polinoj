@@ -1,5 +1,6 @@
 package com.oj.startpolinoj.controller;
 
+import com.oj.commonpolinoj.HttpResult;
 import com.oj.commonpolinoj.dto.UserCreateDTO;
 import com.oj.commonpolinoj.dto.UserDTO;
 import com.oj.commonpolinoj.dto.UserGetDTO;
@@ -23,16 +24,19 @@ public class UserController {
 
     @PostMapping
     @ApiOperation(value = "更新用户信息")
-    public UserVO updateUser(@RequestBody UserUpdateVO userUpdateVO) {
+    public HttpResult<UserVO> updateUser(@RequestBody UserUpdateVO userUpdateVO,HttpServletRequest httpServletRequest) {
         UserUpdateDTO userUpdateDTO = UserConverter.toUserUpdateDTO(userUpdateVO);
         UserDTO userDTO = userDAOService.updateUser(userUpdateDTO);
-        return UserConverter.toUserVO(userDTO);
+        UserVO userVO = UserConverter.toUserVO(userDTO);
+        httpServletRequest.getSession().setAttribute("user",userDTO);
+        return HttpResult.success(userVO);
     }
 
     @GetMapping
     @ApiOperation(value = "获取用户信息")
-    public UserVO getUser(HttpServletRequest httpServletRequest) {
+    public HttpResult<UserVO> getUser(HttpServletRequest httpServletRequest) {
         UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
-        return UserConverter.toUserVO(userDTO);
+        UserVO userVO = UserConverter.toUserVO(userDTO);
+        return HttpResult.success(userVO);
     }
 }

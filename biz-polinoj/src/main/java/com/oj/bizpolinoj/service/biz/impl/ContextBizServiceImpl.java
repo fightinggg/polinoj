@@ -29,6 +29,12 @@ public class ContextBizServiceImpl implements ContextBizService {
 
     @Override
     public PageResult<ContextDTO> pageContext(ContextPageDTO pageDTO) {
+        if (pageDTO.getPageIndex() == null) {
+            pageDTO.setPageIndex(1L);
+        }
+        if (pageDTO.getPageSize() == null) {
+            pageDTO.setPageSize(10L);
+        }
         return contextService.pageContext(pageDTO);
     }
 }
