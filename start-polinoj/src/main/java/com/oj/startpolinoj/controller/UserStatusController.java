@@ -12,6 +12,7 @@ import com.oj.startpolinoj.convert.UserConverter;
 import com.oj.startpolinoj.vo.LoginVO;
 import com.oj.startpolinoj.vo.UserCreateVO;
 import com.oj.startpolinoj.vo.UserVO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,9 @@ public class UserStatusController {
     @Autowired
     UserBizService userBizService;
 
+
     @PostMapping("/login")
+    @ApiOperation(value = "用户登录")
     HttpResult<UserVO> login(@RequestBody LoginVO loginVO, HttpServletRequest request) {
         LoginDTO loginDTO = LoginConverter.toLoginDTO(loginVO);
         UserDTO login = userBizService.login(loginDTO, request);
@@ -32,6 +35,7 @@ public class UserStatusController {
     }
 
     @GetMapping("/slat")
+    @ApiOperation(value = "获取用户盐")
     HttpResult<UserVO> getSlat(String username) {
         UserGetDTO userGetDTO = new UserGetDTO();
         userGetDTO.setUsername(username);
@@ -41,6 +45,7 @@ public class UserStatusController {
     }
 
     @PutMapping("/signin")
+    @ApiOperation(value = "注册用户")
     public UserVO createUser(@RequestBody UserCreateVO userCreateVO, HttpServletRequest request) {
         UserCreateDTO userCreateDTO = UserConverter.toUserCreateDTO(userCreateVO);
         UserDTO userDTO = userBizService.createUser(userCreateDTO);
@@ -50,6 +55,7 @@ public class UserStatusController {
 
 
     @PostMapping("/logout")
+    @ApiOperation(value = "登出用户")
     public UserVO logout(HttpServletRequest httpServletRequest){
         UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
         httpServletRequest.getSession().removeAttribute("user");

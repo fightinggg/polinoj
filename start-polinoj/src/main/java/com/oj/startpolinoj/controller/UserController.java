@@ -9,6 +9,7 @@ import com.oj.startpolinoj.convert.UserConverter;
 import com.oj.startpolinoj.vo.UserCreateVO;
 import com.oj.startpolinoj.vo.UserUpdateVO;
 import com.oj.startpolinoj.vo.UserVO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class UserController {
     UserDAOService userDAOService;
 
     @PostMapping
+    @ApiOperation(value = "更新用户信息")
     public UserVO updateUser(@RequestBody UserUpdateVO userUpdateVO) {
         UserUpdateDTO userUpdateDTO = UserConverter.toUserUpdateDTO(userUpdateVO);
         UserDTO userDTO = userDAOService.updateUser(userUpdateDTO);
@@ -28,6 +30,7 @@ public class UserController {
     }
 
     @GetMapping
+    @ApiOperation(value = "获取用户信息")
     public UserVO getUser(HttpServletRequest httpServletRequest) {
         UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
         return UserConverter.toUserVO(userDTO);

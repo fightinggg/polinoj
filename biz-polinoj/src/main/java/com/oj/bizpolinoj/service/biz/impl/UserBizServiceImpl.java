@@ -4,7 +4,9 @@ import com.oj.bizpolinoj.service.atom.UserService;
 import com.oj.bizpolinoj.service.biz.UserBizService;
 import com.oj.commonpolinoj.OJErrorCode;
 import com.oj.commonpolinoj.OJException;
+import com.oj.commonpolinoj.consts.Sha2Consts;
 import com.oj.commonpolinoj.dto.*;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,12 +50,23 @@ public class UserBizServiceImpl implements UserBizService {
 
     @Override
     public UserDTO getSlat(UserGetDTO userGetDTO) {
+        if (userGetDTO == null) {
+            return null;
+        }
         UserDTO user = userService.getUser(userGetDTO);
-        UserDTO result = new UserDTO();
-        result.setId(user.getId());
-        result.setUsername(user.getUsername());
-        result.setSlat(user.getSlat());
+        if (user == null) {
+            UserDTO result = new UserDTO();
+            result.setUsername(userGetDTO.getUsername());
+            result.setSlat(RandomStringUtils.random(Sha2Consts.LENGTH, Sha2Consts.CHAR_SETS));
+            return result;
+        } else {
+            UserDTO result = new UserDTO();
+            result.setId(user.getId());
+            result.setUsername(user.getUsername());
+            result.setSlat(user.getSlat());
 
-        return result;
+            return result;
+        }
+
     }
 }
