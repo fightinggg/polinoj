@@ -1,16 +1,11 @@
 package com.oj.commonpolinoj;
 
+import lombok.Getter;
+
+@Getter
 public class OJException extends RuntimeException {
-    private OJErrorCode ojErrorCode;
-
-
-    public String getCode() {
-        return ojErrorCode.getCode();
-    }
-
-    public String getMsg() {
-        return ojErrorCode.getMsg();
-    }
+    private String code;
+    private String msg;
 
     private OJException() {
 
@@ -19,7 +14,15 @@ public class OJException extends RuntimeException {
 
     public static OJException buildOJException(OJErrorCode ojErrorCode) {
         OJException ojException = new OJException();
-        ojException.ojErrorCode = ojErrorCode;
+        ojException.code = ojErrorCode.getCode();
+        ojException.msg = ojErrorCode.getMsg();
+        return ojException;
+    }
+
+    public static OJException buildOJException(OJErrorCode ojErrorCode, String msg) {
+        OJException ojException = new OJException();
+        ojException.code = ojErrorCode.getCode();
+        ojException.msg = ojErrorCode.getMsg() + "\n" + msg;
         return ojException;
     }
 }

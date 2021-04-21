@@ -2,6 +2,8 @@ package com.oj.dalpolinoj.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.oj.commonpolinoj.OJErrorCode;
+import com.oj.commonpolinoj.OJException;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.*;
 import com.oj.dalpolinoj.converter.ProblemConverter;
@@ -33,6 +35,10 @@ public class ProblemDAOServiceImpl implements ProblemDAOService {
                 "id", problemGetDTO.getProblemId());
 
         Problem problem = problemMapper.selectOne(queryWrapper);
+
+        if (problem == null) {
+            throw OJException.buildOJException(OJErrorCode.NO_SUCH_PROBLEM, "题号:" + problemGetDTO.getProblemId());
+        }
 
         return ProblemConverter.toProblemDTO(problem);
     }

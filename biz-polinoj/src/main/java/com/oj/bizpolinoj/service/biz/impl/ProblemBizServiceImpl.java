@@ -3,6 +3,7 @@ package com.oj.bizpolinoj.service.biz.impl;
 import com.oj.bizpolinoj.converter.ProblemConverter;
 import com.oj.bizpolinoj.service.atom.ProblemService;
 import com.oj.bizpolinoj.service.atom.SampleService;
+import com.oj.bizpolinoj.service.atom.UserService;
 import com.oj.commonpolinoj.OJErrorCode;
 import com.oj.commonpolinoj.OJException;
 import com.oj.commonpolinoj.PageResult;
@@ -30,6 +31,9 @@ public class ProblemBizServiceImpl implements ProblemBizService {
     @Autowired
     HduOjSalService hduOjSalService;
 
+    @Autowired
+    UserService userService;
+
 
     @Override
     public ProblemDTO getProblem(ProblemGetDTO problemGetDTO) {
@@ -44,7 +48,7 @@ public class ProblemBizServiceImpl implements ProblemBizService {
     }
 
     @Override
-    public PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO){
+    public PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
         if (problemRemotePageDTO.getPageIndex() == null) {
             problemRemotePageDTO.setPageIndex(1);
         }
@@ -83,23 +87,6 @@ public class ProblemBizServiceImpl implements ProblemBizService {
         return problem;
     }
 
-
-    @Override
-    public SubmitDTO submitProblem(ProblemSubmitDTO problemSubmitDTO) {
-        return problemService.submitProblem(problemSubmitDTO);
-    }
-
-    @Override
-    public PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO) {
-        if (submitPageDTO.getPageIndex() == null) {
-            submitPageDTO.setPageIndex(1);
-        }
-        if (submitPageDTO.getPageSize() == null) {
-            submitPageDTO.setPageSize(10);
-        }
-        return problemService.getProblemSubmitResult(submitPageDTO);
-    }
-
     @Override
     public ProblemDTO pullProblem(ProblemPullDTO problemPullDTO) {
         if (OjName.HDU_NAME.equals(problemPullDTO.getSource())) {
@@ -120,7 +107,7 @@ public class ProblemBizServiceImpl implements ProblemBizService {
             problemPageDTO.setPageSize(10L);
         }
         PageResult<ProblemDTO> problemDTOPageResult = problemService.pageProblem(problemPageDTO);
-        problemDTOPageResult.getList().forEach(o->{
+        problemDTOPageResult.getList().forEach(o -> {
             SampleGetDTO sampleGetDTO = new SampleGetDTO();
             sampleGetDTO.setProblemId(o.getProblemId());
             List<SampleDTO> sampleDTOS = sampleService.listSampleDTO(sampleGetDTO);

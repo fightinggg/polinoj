@@ -6,7 +6,8 @@ import lombok.Data;
 public class SubmitVO {
     Long id;
     Long problemId;
-    String user;
+    Long userId;
+    String userName;
     String status;
     String code;
     String submitTime;

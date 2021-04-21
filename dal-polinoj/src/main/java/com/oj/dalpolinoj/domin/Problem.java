@@ -3,7 +3,6 @@ package com.oj.dalpolinoj.domin;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author wsx
- * @since 2021-04-12
+ * @since 2021-04-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -49,7 +48,6 @@ public class Problem implements Serializable {
 
     private String author;
 
-    @TableField("sourceId")
     private String sourceId;
 
 

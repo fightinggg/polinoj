@@ -10,3 +10,4 @@ create table context
 
 INSERT INTO polinoj.context (id, name, begin_time, end_time, owner_id) VALUES (1, 'context1', 0, 0, 2);
 INSERT INTO polinoj.context (id, name, begin_time, end_time, owner_id) VALUES (2, 'context2', 0, 0, 2);
+INSERT INTO polinoj.context (id, name, begin_time, end_time, owner_id) VALUES (3, 'gh ', 1617732845000, 1618596786000, 1);

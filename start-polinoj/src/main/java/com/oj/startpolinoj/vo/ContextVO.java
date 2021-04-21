@@ -17,5 +17,7 @@ public class ContextVO {
 
     private Long ownerId;
 
+    private String ownerName;
+
     private List<Long> problemId;
 }

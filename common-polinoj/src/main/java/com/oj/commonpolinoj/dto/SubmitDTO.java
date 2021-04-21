@@ -7,7 +7,8 @@ public class SubmitDTO {
     Long id;
     Long problemId;
     String sourceSubmitId;
-    String user;
+    Long userId;
+    String userName;
     Integer status;
     String code;
     String submitTime;

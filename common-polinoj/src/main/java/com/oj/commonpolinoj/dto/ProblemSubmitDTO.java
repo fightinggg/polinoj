@@ -7,4 +7,5 @@ public class ProblemSubmitDTO {
     Long problemId;
     String code;
     String lang;
+    Long userId;
 }

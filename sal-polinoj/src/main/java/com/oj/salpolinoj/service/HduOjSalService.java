@@ -225,7 +225,7 @@ public class HduOjSalService {
                             submitDTO.setExecTime(Long.valueOf(execTime.substring(0, execTime.length() - 2)));
                             String execMemory = children.get(5).html();
                             submitDTO.setExecMemory(Long.valueOf(execMemory.substring(0, execMemory.length() - 1)));
-                            submitDTO.setUser(children.get(8).text());
+                            //submitDTO.setUserId(children.get(8).text());
                             return submitDTO;
                         })
                         .get();
@@ -265,7 +265,7 @@ public class HduOjSalService {
                             submitDTO.setExecTime(Long.valueOf(execTime.substring(0, execTime.length() - 2)));
                             String execMemory = children.get(5).html();
                             submitDTO.setExecMemory(Long.valueOf(execMemory.substring(0, execMemory.length() - 1)));
-                            submitDTO.setUser(children.get(8).text());
+                            //submitDTO.setUserId(children.get(8).text());
                             return submitDTO;
                         })
                         .collect(Collectors.toList());

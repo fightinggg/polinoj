@@ -21,8 +21,15 @@ public enum OJErrorCode {
 
     // 000 - 002 login Service
     LOGIN_FAILED("000-002-000-000", "登录失败"),
+    NO_LOGIN("000-002-000-001", "没有登录"),
 
-    NO_LOGIN("000-002-000-001", "没有登录");
+    // 000 - 003 Problem Service
+    NO_SUCH_PROBLEM("000-003-000-000", "没有这个题目"),
+
+
+    // 000 - 004 submit Service
+    SUBMIT_CODE_TOO_SHORT("000-004-000-000", "提交的代码太短了");
+
 
     String code;
 

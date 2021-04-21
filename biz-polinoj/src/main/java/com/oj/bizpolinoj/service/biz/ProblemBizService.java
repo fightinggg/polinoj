@@ -10,10 +10,6 @@ public interface ProblemBizService {
 
     ProblemDTO createProblem(ProblemCreateDTO problemCreateDTO);
 
-    SubmitDTO submitProblem(ProblemSubmitDTO toProblemSubmitDTO);
-
-    PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO);
-
     ProblemDTO pullProblem(ProblemPullDTO problemPullDTO);
 
     PageResult<ProblemDTO> pageProblem(ProblemPageDTO toProblemPageDTO);

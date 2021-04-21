@@ -8,7 +8,8 @@ public class SubmitConverter {
         SubmitVO submitVO = new SubmitVO();
 //        submitVO.setProblemSource();
         submitVO.setProblemId(submitDTO.getProblemId());
-        submitVO.setUser(submitDTO.getUser());
+        submitVO.setUserId(submitDTO.getUserId());
+        submitVO.setUserName(submitDTO.getUserName());
         submitVO.setStatus(String.valueOf(submitDTO.getStatus()));
         submitVO.setCode(submitDTO.getCode());
         submitVO.setSubmitTime(submitDTO.getSubmitTime());

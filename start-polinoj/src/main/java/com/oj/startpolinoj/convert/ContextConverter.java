@@ -32,6 +32,7 @@ public class ContextConverter {
         contextVO.setBeginTime(context.getBeginTime());
         contextVO.setEndTime(context.getEndTime());
         contextVO.setOwnerId(context.getOwnerId());
+        contextVO.setOwnerName(context.getOwnerName());
         contextVO.setProblemId(context.getProblemId());
         return contextVO;
     }

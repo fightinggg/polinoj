@@ -96,7 +96,8 @@ public class ProblemConverter {
         SubmitVO submitVO = new SubmitVO();
         submitVO.setId(submitDTO.getId());
         submitVO.setProblemId(submitDTO.getProblemId());
-        submitVO.setUser(submitDTO.getUser());
+        submitVO.setUserId(submitDTO.getUserId());
+        submitVO.setUserName(submitDTO.getUserName());
         // 把状态代码变为状态字符串
         submitVO.setStatus(SubmitStatus.getById(submitDTO.getStatus()));
         submitVO.setCode(submitDTO.getCode());
@@ -114,8 +115,6 @@ public class ProblemConverter {
         pageResult.setPageIndex(submitResultDTOs.getPageIndex());
         pageResult.setTotal(submitResultDTOs.getTotal());
         return pageResult;
-
-
     }
 
 

@@ -1,8 +1,12 @@
 package com.oj.bizpolinoj.service.biz.impl;
 
+import com.oj.bizpolinoj.service.atom.ProblemService;
+import com.oj.bizpolinoj.service.atom.UserService;
 import com.oj.bizpolinoj.service.biz.SubmitBizService;
-import com.oj.commonpolinoj.dto.SubmitDTO;
-import com.oj.commonpolinoj.dto.SubmitGetDTO;
+import com.oj.commonpolinoj.OJErrorCode;
+import com.oj.commonpolinoj.OJException;
+import com.oj.commonpolinoj.PageResult;
+import com.oj.commonpolinoj.dto.*;
 import com.oj.dalpolinoj.service.SubmitDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +17,44 @@ public class SubmitBizServiceImpl implements SubmitBizService {
     @Autowired
     SubmitDAOService submitService;
 
+    @Autowired
+    ProblemService problemService;
+
+    @Autowired
+    UserService userService;
+
+
     @Override
     public SubmitDTO getSubmitDTO(SubmitGetDTO submitGetDTO){
         return submitService.getSubmitDTO(submitGetDTO);
+    }
+
+    @Override
+    public SubmitDTO submitProblem(ProblemSubmitDTO problemSubmitDTO) {
+        if(problemSubmitDTO.getCode().length()<50){
+            throw OJException.buildOJException(OJErrorCode.SUBMIT_CODE_TOO_SHORT);
+        }
+        return problemService.submitProblem(problemSubmitDTO);
+    }
+
+    @Override
+    public PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO) {
+        if (submitPageDTO.getPageIndex() == null) {
+            submitPageDTO.setPageIndex(1);
+        }
+        if (submitPageDTO.getPageSize() == null) {
+            submitPageDTO.setPageSize(10);
+        }
+
+        PageResult<SubmitDTO> problemSubmitResult = problemService.getProblemSubmitResult(submitPageDTO);
+
+        problemSubmitResult.getList().forEach(o -> {
+            UserGetDTO userGetDTO = new UserGetDTO();
+            userGetDTO.setId(o.getUserId());
+            UserDTO user = userService.getUser(userGetDTO);
+            o.setUserName(user.getUsername());
+        });
+
+        return problemSubmitResult;
     }
 }

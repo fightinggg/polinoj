@@ -49,6 +49,7 @@ public class ProblemServiceImpl implements ProblemService {
                     problem.getSourceId());
             submitDTO.setProblemId(problemSubmitDTO.getProblemId());
             submitDTO.setCode(problemSubmitDTO.getCode());
+            submitDTO.setUserId(problemSubmitDTO.getUserId());
             return submitDAOService.createSubmitResultDTO(submitDTO);
         } else {
             throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);

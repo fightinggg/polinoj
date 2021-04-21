@@ -1,6 +1,7 @@
 package com.oj.startpolinoj.controller;
 
 import com.oj.bizpolinoj.service.biz.ProblemBizService;
+import com.oj.commonpolinoj.HttpResult;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.*;
 import com.oj.startpolinoj.vo.*;
@@ -17,12 +18,13 @@ public class ProblemController {
 
 
     @GetMapping
-    ProblemVO getProblem(@RequestParam Long problemId) {
+    HttpResult<ProblemVO> getProblem(@RequestParam Long problemId) {
         ProblemGetVO problemGetVO = new ProblemGetVO();
         problemGetVO.setProblemId(problemId);
         ProblemGetDTO problemGetDTO = ProblemConverter.toProblemGetDTO(problemGetVO);
         ProblemDTO problem = problemBizService.getProblem(problemGetDTO);
-        return ProblemConverter.toProblemVO(problem);
+        ProblemVO problemVO = ProblemConverter.toProblemVO(problem);
+        return HttpResult.success(problemVO);
     }
 
     @PostMapping("/page")
@@ -42,20 +44,6 @@ public class ProblemController {
         return ProblemConverter.toProblemVO(problem);
     }
 
-    @PostMapping("/submit")
-    SubmitDTO submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO) {
-        ProblemSubmitDTO problemSubmitDTO = ProblemConverter.toProblemSubmitDTO(problemSubmitVO);
-        return problemBizService.submitProblem(problemSubmitDTO);
-    }
-
-
-    @GetMapping("/status")
-    PageResult<SubmitVO> getProblemSubmitResult(SubmitPageVO submitPageVO) {
-        SubmitPageDTO submitPageDTO = ProblemConverter.toSubmitResultGetDTO(submitPageVO);
-        PageResult<SubmitDTO> submitResultDTOs = problemBizService.getProblemSubmitResult(submitPageDTO);
-        return ProblemConverter.toSubmitResultVOPage(submitResultDTOs);
-    }
-
 
     @PostMapping("/pull")
     ProblemVO pullProblem(@RequestBody ProblemPullVO problemPullVO) {
@@ -66,7 +54,7 @@ public class ProblemController {
 
 
     @PostMapping("/remote")
-    PageResult<ProblemVO> remoteProblem(@RequestBody ProblemRemotePageVO problemRemotePageVO){
+    PageResult<ProblemVO> remoteProblem(@RequestBody ProblemRemotePageVO problemRemotePageVO) {
         ProblemRemotePageDTO problemRemotePageDTO = ProblemConverter.toProblemRemotePageDTO(problemRemotePageVO);
         PageResult<ProblemDTO> remoteProblem = problemBizService.getRemoteProblem(problemRemotePageDTO);
         return ProblemConverter.toProblemPageVO(remoteProblem);

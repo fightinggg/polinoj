@@ -3,7 +3,6 @@ package com.oj.dalpolinoj.domin;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author wsx
- * @since 2021-04-13
+ * @since 2021-04-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,14 +30,13 @@ public class Submit implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @TableField("problemId")
     private Long problemId;
 
     private String sourceSubmitId;
 
     private String code;
 
-    private String user;
+    private Long userId;
 
     private Integer status;
 

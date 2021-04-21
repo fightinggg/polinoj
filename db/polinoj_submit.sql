@@ -2,10 +2,10 @@ create table submit
 (
     id               bigint auto_increment
         primary key,
-    problemId        bigint       not null,
+    problem_id       bigint       not null,
     source_submit_id varchar(255) null,
     code             text         null,
-    user             varchar(255) null,
+    user_id          bigint       null,
     status           int          null,
     exec_time        bigint       null,
     exec_memory      bigint       null,
@@ -13,7 +13,7 @@ create table submit
         unique (source_submit_id)
 );
 
-INSERT INTO polinoj.submit (id, problemId, source_submit_id, code, user, status, exec_time, exec_memory) VALUES (14, 17, '35808931', '#include<bits/stdc++.h>
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (14, 17, '35808931', '#include<bits/stdc++.h>
 using namespace std;
 /*
 //如果没有特殊要求，尽量选择合适的自动机，要算好内存
@@ -98,8 +98,8 @@ int main(){
         mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;
         vec.push_back(mp);
     }
-}', '1144560553', 6, 0, 0);
-INSERT INTO polinoj.submit (id, problemId, source_submit_id, code, user, status, exec_time, exec_memory) VALUES (15, 17, '35809009', '#include<bits/stdc++.h>
+}', 1, 6, 0, 0);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (15, 17, '35809009', '#include<bits/stdc++.h>
 using namespace std;
 /*
 //如果没有特殊要求，尽量选择合适的自动机，要算好内存
@@ -184,8 +184,8 @@ int main(){
         mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;
         vec.push_back(mp);
     }
-}', '1144560553', 6, 0, 0);
-INSERT INTO polinoj.submit (id, problemId, source_submit_id, code, user, status, exec_time, exec_memory) VALUES (16, 17, '35809036', '#include<bits/stdc++.h>
+}', 1, 6, 0, 0);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (16, 17, '35809036', '#include<bits/stdc++.h>
 using namespace std;
 /*
 //如果没有特殊要求，尽量选择合适的自动机，要算好内存
@@ -270,18 +270,18 @@ int main(){
         mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;mp[1]=1;
         vec.push_back(mp);
     }
-}', '1144560553', 2, 15, 3896);
-INSERT INTO polinoj.submit (id, problemId, source_submit_id, code, user, status, exec_time, exec_memory) VALUES (17, 17, '35809298', '#include<bits/stdc++.h>
+}', 1, 2, 15, 3896);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (17, 17, '35809298', '#include<bits/stdc++.h>
 using namespace std;
 int main(){
 int a,b;cin>>a>>b;cout<<a+b<<endl;
-}', '1144560553', 3, 15, 1388);
-INSERT INTO polinoj.submit (id, problemId, source_submit_id, code, user, status, exec_time, exec_memory) VALUES (18, 17, '35809316', '#include<bits/stdc++.h>
+}', 2, 3, 15, 1388);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (18, 17, '35809316', '#include<bits/stdc++.h>
 using namespace std;
 int main(){
 int a,b;
 while(cin>>a>>b){
 cout<<a+b<<endl;
 }
-}', '1144560553', 2, 0, 1392);
-INSERT INTO polinoj.submit (id, problemId, source_submit_id, code, user, status, exec_time, exec_memory) VALUES (19, 14, '35814310', '写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码写一点代码', '1144560553', 6, 0, 0);
+}', 2, 2, 0, 1392);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (19, 14, '35814310', '//写一点代码', 2, 6, 0, 0);

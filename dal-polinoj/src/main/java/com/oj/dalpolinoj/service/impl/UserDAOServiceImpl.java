@@ -37,7 +37,6 @@ public class UserDAOServiceImpl implements UserDAOService {
             throw OJException.buildOJException(OJErrorCode.ADMIN_ACCOUNT_COLUD_NOT_CNAHGE);
         }
 
-
         User user = UserConverter.toUserDO(userUpdateDTO);
         int i = userMapper.updateById(user);
         if (i != 1) {
