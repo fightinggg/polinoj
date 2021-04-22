@@ -89,18 +89,8 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
         if (OjName.HDU_NAME.equals(problemRemotePageDTO.getSource())) {
-            int size = problemRemotePageDTO.getPageSize();
-            int index = problemRemotePageDTO.getPageIndex();
-            List<ProblemDTO> problemDTOList = new ArrayList<>();
-            for (int id = 0; id < size; id++) {
-                ProblemDTO problem = hduOjSalService.getProblem(String.valueOf(1000 + id + size * (index - 1)));
-                problemDTOList.add(problem);
-            }
-            PageResult<ProblemDTO> result = new PageResult<>();
-            result.setPageSize(size);
-            result.setPageIndex(index);
-            result.setList(problemDTOList);
-            result.setTotal(5000);
+            PageResult<ProblemDTO> result = hduOjSalService.pageProblem(problemRemotePageDTO);
+            result.setTotal(6000);
             return result;
         } else {
             throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);

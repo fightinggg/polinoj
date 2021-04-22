@@ -46,10 +46,11 @@ public class ProblemController {
 
 
     @PostMapping("/pull")
-    ProblemVO pullProblem(@RequestBody ProblemPullVO problemPullVO) {
+    HttpResult<ProblemVO> pullProblem(@RequestBody ProblemPullVO problemPullVO) {
         ProblemPullDTO problemPullDTO = ProblemConverter.toProblemPullDTO(problemPullVO);
         ProblemDTO problemDTO = problemBizService.pullProblem(problemPullDTO);
-        return ProblemConverter.toProblemVO(problemDTO);
+        ProblemVO problemVO = ProblemConverter.toProblemVO(problemDTO);
+        return HttpResult.success(problemVO);
     }
 
 

@@ -5,7 +5,9 @@ import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.*;
 import com.oj.commonpolinoj.enums.SubmitStatus;
 import com.oj.startpolinoj.vo.*;
+import org.springframework.lang.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProblemConverter {
@@ -26,10 +28,10 @@ public class ProblemConverter {
         return problemVO;
     }
 
-    private static List<SampleVO> toSampleVOList(List<SampleDTO> sampleDTOList) {
-        List<SampleVO> sampleVOlist=Lists.newArrayList();
-        for (SampleDTO sampleDTO :sampleDTOList) {
-        	sampleVOlist.add(toSampleVO(sampleDTO));
+    private static List<SampleVO> toSampleVOList(@NonNull List<SampleDTO> sampleDTOList) {
+        List<SampleVO> sampleVOlist = Lists.newArrayList();
+        for (SampleDTO sampleDTO : sampleDTOList) {
+            sampleVOlist.add(toSampleVO(sampleDTO));
         }
         return sampleVOlist;
     }
@@ -144,8 +146,8 @@ public class ProblemConverter {
     }
 
     private static List<ProblemVO> toProblemVOList(List<ProblemDTO> list) {
-        List<ProblemVO> problemVOList=Lists.newArrayList();
-        for (ProblemDTO problemDTO :list) {
+        List<ProblemVO> problemVOList = Lists.newArrayList();
+        for (ProblemDTO problemDTO : list) {
             problemVOList.add(toProblemVO(problemDTO));
         }
         return problemVOList;

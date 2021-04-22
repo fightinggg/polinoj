@@ -285,3 +285,10 @@ cout<<a+b<<endl;
 }
 }', 2, 2, 0, 1392);
 INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (19, 14, '35814310', '//写一点代码', 2, 6, 0, 0);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (22, 14, '35867930', '#include<bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<bits/stdc++.h>
+#include<bits/stdc++.h>', 1, 6, 0, 0);

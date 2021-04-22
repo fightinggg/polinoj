@@ -1,24 +1,28 @@
 package com.oj.salpolinoj.service;
 
 import com.github.houbb.html2md.util.Html2MdHelper;
-import com.oj.commonpolinoj.dto.ProblemDTO;
-import com.oj.commonpolinoj.dto.SampleDTO;
-import com.oj.commonpolinoj.dto.SubmitDTO;
+import com.oj.commonpolinoj.OJErrorCode;
+import com.oj.commonpolinoj.OJException;
+import com.oj.commonpolinoj.PageResult;
+import com.oj.commonpolinoj.dto.*;
 import com.oj.commonpolinoj.enums.OjName;
 import com.oj.commonpolinoj.enums.SubmitStatus;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Component
@@ -47,6 +51,72 @@ public class HduOjSalService {
             log.error("login error:", e);
             return "null";
         }
+    }
+
+
+    public PageResult<ProblemDTO> pageProblem(ProblemRemotePageDTO problemPageDTO) {
+        int pageIndex = Math.toIntExact(problemPageDTO.getPageIndex());
+        int pageSize = Math.toIntExact(problemPageDTO.getPageSize());
+
+        int itemBegin = (pageIndex - 1) * pageSize;
+        int itemEnd = itemBegin + pageSize - 1;
+        int hduPageBegin = itemBegin / 100 + 1;
+        int hduPageEnd = itemEnd / 100 + 1;
+
+        List<ProblemDTO> list = new ArrayList<>();
+        for (int i = hduPageBegin; i <= hduPageEnd; i++) {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            Request request = new Request.Builder()
+                    .url("http://acm.hdu.edu.cn/listproblem.php?vol=" + i)
+                    .method("GET", null)
+                    .build();
+            try (Response response = client.newCall(request).execute()) {
+                String html = response.body().string();
+                // document.body.children[2].children[0]
+                // .children[5].children[0].children[0].children[0]
+                Document document = Jsoup.parse(html);
+                String[] split = document.body()
+                        .childNode(3)
+                        .childNode(1)
+                        .childNode(10)
+                        .childNode(1)
+                        .childNode(1)
+                        .childNode(0)
+                        .childNode(1)
+                        .childNode(0)
+                        .outerHtml().split(";");
+                List<ProblemDTO> problemDTOS = Arrays.stream(split)
+                        .map(o -> o.substring(2, o.length() - 1))
+                        .map(o -> o.split(","))
+                        .map(o -> {
+                            ProblemDTO problemDTO = new ProblemDTO();
+                            problemDTO.setSourceId(o[1]);
+                            problemDTO.setTitle(o[3]);
+                            problemDTO.setSampleDTOList(new ArrayList<>());
+                            problemDTO.setSource(OjName.HDU_NAME);
+                            try {
+                                problemDTO.setAc(Long.valueOf(o[4]));
+                                problemDTO.setAll(Long.valueOf(o[5]));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            int itemIndex = Integer.valueOf(o[1]) - 1000;
+                            if (itemBegin <= itemIndex && itemIndex <= itemEnd) {
+                                list.add(problemDTO);
+                            }
+                            return problemDTO;
+                        }).collect(Collectors.toList());
+            } catch (IOException e) {
+                log.error("pageProblem error ", e);
+                throw OJException.buildOJException(OJErrorCode.UNKNOWN_ERROR);
+            }
+        }
+        PageResult<ProblemDTO> pageResult = new PageResult<>();
+        pageResult.setList(list);
+        pageResult.setPageSize(pageSize);
+        pageResult.setPageIndex(pageIndex);
+        return pageResult;
     }
 
     public ProblemDTO getProblem(String id) {

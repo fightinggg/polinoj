@@ -19,4 +19,6 @@ public class ProblemDTO {
     Long time;
     Long memory;
     String hint;
+    Long ac;
+    Long all;
 }
