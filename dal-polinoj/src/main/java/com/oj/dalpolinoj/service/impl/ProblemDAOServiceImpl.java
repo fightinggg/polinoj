@@ -11,6 +11,7 @@ import com.oj.dalpolinoj.domin.Problem;
 import com.oj.dalpolinoj.mapper.ProblemMapper;
 import com.oj.dalpolinoj.service.ProblemDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +25,12 @@ public class ProblemDAOServiceImpl implements ProblemDAOService {
     @Override
     public ProblemDTO createProblem(ProblemCreateDTO problemCreateDTO) {
         Problem problem = ProblemConverter.toProblemDO(problemCreateDTO);
-        int insert = problemMapper.insert(problem);
-        return ProblemConverter.toProblemDTO(problem);
+        try {
+            int insert = problemMapper.insert(problem);
+            return ProblemConverter.toProblemDTO(problem);
+        }catch (DuplicateKeyException duplicateKeyException){
+            throw OJException.buildOJException(OJErrorCode.DUPLICATE_PROBLEM);
+        }
     }
 
     @Override
@@ -48,12 +53,17 @@ public class ProblemDAOServiceImpl implements ProblemDAOService {
         QueryWrapper<Problem> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(problemPageDTO.getSource() != null,
                 "source", problemPageDTO.getSource());
+        queryWrapper.orderByDesc("id");
+
         Page<Problem> tPage = new Page<>(problemPageDTO.getPageIndex(), problemPageDTO.getPageSize());
         Page<Problem> problemPage = problemMapper.selectPage(tPage, queryWrapper);
         List<ProblemDTO> problemDTOS = ProblemConverter.toProblemDTOList(problemPage.getRecords());
 
         PageResult<ProblemDTO> problemDTOPageResult = new PageResult<>();
         problemDTOPageResult.setList(problemDTOS);
+        problemDTOPageResult.setPageIndex((int) problemPage.getCurrent());
+        problemDTOPageResult.setTotal((int) problemPage.getTotal());
+        problemDTOPageResult.setPageSize((int) problemPage.getSize());
         return problemDTOPageResult;
     }
 

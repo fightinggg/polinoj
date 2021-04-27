@@ -8,15 +8,17 @@ public class ProblemConverter {
         problemCreateDTO.setDescription(problem.getDescription());
         problemCreateDTO.setInput(problem.getInput());
         problemCreateDTO.setOutput(problem.getOutput());
-        problemCreateDTO.setSampleDTOList(problem.getSampleDTOList());
+        problemCreateDTO.setSample(problem.getSample());
         problemCreateDTO.setSource(problem.getSource());
         problemCreateDTO.setSourceId(problem.getSourceId());
         problemCreateDTO.setAuthor(problem.getAuthor());
         problemCreateDTO.setTime(problem.getTime());
         problemCreateDTO.setMemory(problem.getMemory());
         problemCreateDTO.setTitle(problem.getTitle());
-//        problemCreateDTO.setTestSampleList();
+//        problemCreateDTO.setTestSampleDTOList();
         problemCreateDTO.setHint(problem.getHint());
         return problemCreateDTO;
+
+
     }
 }

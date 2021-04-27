@@ -6,7 +6,7 @@ import com.oj.commonpolinoj.dto.*;
 public interface ProblemBizService {
     ProblemDTO getProblem(ProblemGetDTO problemGetDTO);
 
-    PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO);
+    PageResult<RemoteProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO);
 
     ProblemDTO createProblem(ProblemCreateDTO problemCreateDTO);
 

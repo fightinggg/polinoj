@@ -7,24 +7,28 @@ import com.oj.commonpolinoj.enums.SubmitStatus;
 import com.oj.startpolinoj.vo.*;
 import org.springframework.lang.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProblemConverter {
 
     public static ProblemVO toProblemVO(ProblemDTO problemDTO) {
         ProblemVO problemVO = new ProblemVO();
-        problemVO.setProblemId(problemDTO.getProblemId());
+//        problemVO.setProblemId();
         problemVO.setTitle(problemDTO.getTitle());
         problemVO.setDescription(problemDTO.getDescription());
         problemVO.setInput(problemDTO.getInput());
         problemVO.setOutput(problemDTO.getOutput());
-        problemVO.setSampleList(toSampleVOList(problemDTO.getSampleDTOList()));
+//        problemVO.setSampleList();
         problemVO.setSource(problemDTO.getSource());
         problemVO.setSourceId(problemDTO.getSourceId());
         problemVO.setAuthor(problemDTO.getAuthor());
         problemVO.setTime(problemDTO.getTime());
         problemVO.setMemory(problemDTO.getMemory());
+        problemVO.setAcCount(problemDTO.getAcCount());
+        problemVO.setAllCount(problemDTO.getAllCount());
+        // add
+        problemVO.setProblemId(problemDTO.getId());
+        problemVO.setSampleList(toSampleVOList(problemDTO.getSample()));
         return problemVO;
     }
 
@@ -58,13 +62,17 @@ public class ProblemConverter {
         problemCreateDTO.setDescription(problemCreateVO.getDescription());
         problemCreateDTO.setInput(problemCreateVO.getInput());
         problemCreateDTO.setOutput(problemCreateVO.getOutput());
-        problemCreateDTO.setSampleDTOList(problemCreateVO.getSampleDTOList());
-        problemCreateDTO.setSource(problemCreateVO.getSource());
+        problemCreateDTO.setSample(problemCreateVO.getSample());
+//        problemCreateDTO.setSource();
+//        problemCreateDTO.setSourceId();
         problemCreateDTO.setAuthor(problemCreateVO.getAuthor());
         problemCreateDTO.setTime(problemCreateVO.getTime());
         problemCreateDTO.setMemory(problemCreateVO.getMemory());
-        problemCreateDTO.setTestSampleDTOList(problemCreateVO.getTestSampleDTOList());
+        problemCreateDTO.setTitle(problemCreateVO.getTitle());
+        problemCreateDTO.setTestSampleDTOList(problemCreateVO.getTest());
+        problemCreateDTO.setHint(problemCreateVO.getHint());
         return problemCreateDTO;
+
     }
 
     public static ProblemSubmitDTO toProblemSubmitDTO(ProblemSubmitVO problemSubmitVO) {

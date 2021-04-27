@@ -25,6 +25,7 @@ public enum OJErrorCode {
 
     // 000 - 003 Problem Service
     NO_SUCH_PROBLEM("000-003-000-000", "没有这个题目"),
+    DUPLICATE_PROBLEM("000-003-000-001", "重复的题目"),
 
 
     // 000 - 004 submit Service

@@ -14,5 +14,5 @@ public interface ProblemService {
 
     PageResult<ProblemDTO> pageProblem(ProblemPageDTO problemPageDTO);
 
-    PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO);
+    PageResult<RemoteProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO);
 }

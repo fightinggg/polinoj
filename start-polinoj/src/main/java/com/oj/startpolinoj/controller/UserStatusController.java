@@ -46,17 +46,18 @@ public class UserStatusController {
 
     @PutMapping("/signin")
     @ApiOperation(value = "注册用户")
-    public UserVO createUser(@RequestBody UserCreateVO userCreateVO, HttpServletRequest request) {
+    public HttpResult<UserVO> createUser(@RequestBody UserCreateVO userCreateVO, HttpServletRequest request) {
         UserCreateDTO userCreateDTO = UserConverter.toUserCreateDTO(userCreateVO);
         UserDTO userDTO = userBizService.createUser(userCreateDTO);
         request.getSession().setAttribute("user", userDTO);
-        return UserConverter.toUserVO(userDTO);
+        UserVO userVO = UserConverter.toUserVO(userDTO);
+        return HttpResult.success(userVO);
     }
 
 
     @PostMapping("/logout")
     @ApiOperation(value = "登出用户")
-    public UserVO logout(HttpServletRequest httpServletRequest){
+    public UserVO logout(HttpServletRequest httpServletRequest) {
         UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
         httpServletRequest.getSession().removeAttribute("user");
         return UserConverter.toUserVO(userDTO);

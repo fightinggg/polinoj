@@ -7,13 +7,15 @@ import java.util.List;
 
 @Data
 public class ProblemCreateVO {
+    String title;
     String description;
     String input;
     String output;
-    List<SampleDTO> sampleDTOList;
-    String source;
+    List<SampleDTO> sample;
+//    String source;
     String author;
+    String hint;
     Long time;
     Long memory;
-    List<SampleDTO> testSampleDTOList;
+    List<SampleDTO> test;
 }

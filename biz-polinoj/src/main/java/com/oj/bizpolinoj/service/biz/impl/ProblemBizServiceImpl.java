@@ -42,13 +42,13 @@ public class ProblemBizServiceImpl implements ProblemBizService {
         SampleGetDTO sampleGetDTO = new SampleGetDTO();
         sampleGetDTO.setProblemId(problemGetDTO.getProblemId());
         List<SampleDTO> sampleDTOS = sampleService.listSampleDTO(sampleGetDTO);
-        problem.setSampleDTOList(sampleDTOS);
+        problem.setSample(sampleDTOS);
 
         return problem;
     }
 
     @Override
-    public PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
+    public PageResult<RemoteProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
         if (problemRemotePageDTO.getPageIndex() == null) {
             problemRemotePageDTO.setPageIndex(1);
         }
@@ -62,13 +62,14 @@ public class ProblemBizServiceImpl implements ProblemBizService {
     @Transactional(rollbackFor = Exception.class)
     public ProblemDTO createProblem(ProblemCreateDTO problemCreateDTO) {
 
+        problemCreateDTO.setSource(OjName.POLIN_OJ);
         ProblemDTO problem = problemService.createProblem(problemCreateDTO);
 
-        List<SampleCreateDTO> sampleCreateDTOS = problemCreateDTO.getSampleDTOList()
+        List<SampleCreateDTO> sampleCreateDTOS = problemCreateDTO.getSample()
                 .stream()
                 .map(o -> {
                     SampleCreateDTO sampleCreateDTO = new SampleCreateDTO();
-                    sampleCreateDTO.setProblemId(problem.getProblemId());
+                    sampleCreateDTO.setProblemId(problem.getId());
                     sampleCreateDTO.setInput(o.getInput());
                     sampleCreateDTO.setOutput(o.getOutput());
                     return sampleCreateDTO;
@@ -82,7 +83,7 @@ public class ProblemBizServiceImpl implements ProblemBizService {
             sampleDTOS.add(sample);
         }
 
-        problem.setSampleDTOList(sampleDTOS);
+        problem.setSample(sampleDTOS);
 
         return problem;
     }
@@ -109,9 +110,9 @@ public class ProblemBizServiceImpl implements ProblemBizService {
         PageResult<ProblemDTO> problemDTOPageResult = problemService.pageProblem(problemPageDTO);
         problemDTOPageResult.getList().forEach(o -> {
             SampleGetDTO sampleGetDTO = new SampleGetDTO();
-            sampleGetDTO.setProblemId(o.getProblemId());
+            sampleGetDTO.setProblemId(o.getId());
             List<SampleDTO> sampleDTOS = sampleService.listSampleDTO(sampleGetDTO);
-            o.setSampleDTOList(sampleDTOS);
+            o.setSample(sampleDTOS);
         });
 
         return problemDTOPageResult;

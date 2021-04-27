@@ -2,8 +2,10 @@ package com.oj.commonpolinoj.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class UserDTO {
+public class UserDTO implements Serializable {
 
     private Long id;
 

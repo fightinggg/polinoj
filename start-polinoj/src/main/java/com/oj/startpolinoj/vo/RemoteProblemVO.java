@@ -1,18 +1,14 @@
 package com.oj.startpolinoj.vo;
 
-import com.oj.commonpolinoj.dto.SampleDTO;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class ProblemVO {
-    Long problemId;
+public class RemoteProblemVO {
     String title;
     String description;
     String input;
     String output;
-    List<SampleVO> sampleList;
+    //    List<SampleVO> sampleList;
     String source;
     String sourceId;
     String author;
@@ -20,4 +16,5 @@ public class ProblemVO {
     Long memory;
     Long acCount;
     Long allCount;
+    String url;
 }

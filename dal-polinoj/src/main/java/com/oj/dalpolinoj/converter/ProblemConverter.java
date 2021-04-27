@@ -26,19 +26,23 @@ public class ProblemConverter {
 
     public static ProblemDTO toProblemDTO(Problem problem) {
         ProblemDTO problemDTO = new ProblemDTO();
-        problemDTO.setProblemId(problem.getId());
+        problemDTO.setId(problem.getId());
         problemDTO.setTitle(problem.getTitle());
         problemDTO.setDescription(problem.getDescription());
         problemDTO.setInput(problem.getInput());
         problemDTO.setOutput(problem.getOutput());
-//        problemDTO.setSampleList();
+//        problemDTO.setSampleDTOList();
         problemDTO.setSource(problem.getSource());
         problemDTO.setSourceId(problem.getSourceId());
         problemDTO.setAuthor(problem.getAuthor());
         problemDTO.setTime(problem.getTime());
         problemDTO.setMemory(problem.getMemory());
         problemDTO.setHint(problem.getHint());
+        problemDTO.setAcCount(problem.getAcCount());
+        problemDTO.setAllCount(problem.getAllCount());
         return problemDTO;
+
+
 
     }
 

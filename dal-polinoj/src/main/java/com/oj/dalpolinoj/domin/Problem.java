@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author wsx
- * @since 2021-04-22
+ * @since 2021-04-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -49,6 +49,10 @@ public class Problem implements Serializable {
     private String author;
 
     private String sourceId;
+
+    private Long acCount;
+
+    private Long allCount;
 
 
 }

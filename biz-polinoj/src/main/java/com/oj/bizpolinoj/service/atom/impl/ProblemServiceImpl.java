@@ -87,10 +87,9 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public PageResult<ProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
+    public PageResult<RemoteProblemDTO> getRemoteProblem(ProblemRemotePageDTO problemRemotePageDTO) {
         if (OjName.HDU_NAME.equals(problemRemotePageDTO.getSource())) {
-            PageResult<ProblemDTO> result = hduOjSalService.pageProblem(problemRemotePageDTO);
-            result.setTotal(6000);
+            PageResult<RemoteProblemDTO> result = hduOjSalService.pageProblem(problemRemotePageDTO);
             return result;
         } else {
             throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);

@@ -15,11 +15,13 @@
         <result column="title" property="title" />
         <result column="author" property="author" />
         <result column="source_id" property="sourceId" />
+        <result column="ac_count" property="acCount" />
+        <result column="all_count" property="allCount" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, description, hint, input, memory, output, source, time, title, author, source_id
+        id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count
     </sql>
 
 </mapper>

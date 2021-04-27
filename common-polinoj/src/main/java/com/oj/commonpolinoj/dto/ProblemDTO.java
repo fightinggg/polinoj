@@ -7,18 +7,18 @@ import java.util.List;
 
 @Data
 public class ProblemDTO {
-    Long problemId;
+    Long id;
     String title;
     String description;
     String input;
     String output;
-    List<SampleDTO> sampleDTOList;
+    List<SampleDTO> sample;
     String source;
     String sourceId;
     String author;
     Long time;
     Long memory;
     String hint;
-    Long ac;
-    Long all;
+    Long acCount;
+    Long allCount;
 }

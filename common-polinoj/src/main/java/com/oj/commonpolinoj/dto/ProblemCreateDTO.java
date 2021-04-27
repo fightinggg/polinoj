@@ -9,7 +9,7 @@ public class ProblemCreateDTO {
     String description;
     String input;
     String output;
-    List<SampleDTO> sampleDTOList;
+    List<SampleDTO> sample;
     String source;
     String sourceId;
     String author;
