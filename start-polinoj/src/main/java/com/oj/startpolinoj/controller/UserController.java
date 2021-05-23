@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.oj.commonpolinoj.consts.SessionNameConsts.UserSessionName;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -24,18 +26,18 @@ public class UserController {
 
     @PostMapping
     @ApiOperation(value = "更新用户信息")
-    public HttpResult<UserVO> updateUser(@RequestBody UserUpdateVO userUpdateVO,HttpServletRequest httpServletRequest) {
+    public HttpResult<UserVO> updateUser(@RequestBody UserUpdateVO userUpdateVO, HttpServletRequest httpServletRequest) {
         UserUpdateDTO userUpdateDTO = UserConverter.toUserUpdateDTO(userUpdateVO);
         UserDTO userDTO = userDAOService.updateUser(userUpdateDTO);
         UserVO userVO = UserConverter.toUserVO(userDTO);
-        httpServletRequest.getSession().setAttribute("user",userDTO);
+        httpServletRequest.getSession().setAttribute(UserSessionName, userDTO);
         return HttpResult.success(userVO);
     }
 
     @GetMapping
     @ApiOperation(value = "获取用户信息")
     public HttpResult<UserVO> getUser(HttpServletRequest httpServletRequest) {
-        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
+        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute(UserSessionName);
         UserVO userVO = UserConverter.toUserVO(userDTO);
         return HttpResult.success(userVO);
     }

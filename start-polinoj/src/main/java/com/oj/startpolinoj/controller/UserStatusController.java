@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.oj.commonpolinoj.consts.SessionNameConsts.UserSessionName;
+
 @RestController
 @RequestMapping("/api/status")
 public class UserStatusController {
@@ -49,7 +51,7 @@ public class UserStatusController {
     public HttpResult<UserVO> createUser(@RequestBody UserCreateVO userCreateVO, HttpServletRequest request) {
         UserCreateDTO userCreateDTO = UserConverter.toUserCreateDTO(userCreateVO);
         UserDTO userDTO = userBizService.createUser(userCreateDTO);
-        request.getSession().setAttribute("user", userDTO);
+        request.getSession().setAttribute(UserSessionName, userDTO);
         UserVO userVO = UserConverter.toUserVO(userDTO);
         return HttpResult.success(userVO);
     }
@@ -58,8 +60,8 @@ public class UserStatusController {
     @PostMapping("/logout")
     @ApiOperation(value = "登出用户")
     public UserVO logout(HttpServletRequest httpServletRequest) {
-        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
-        httpServletRequest.getSession().removeAttribute("user");
+        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute(UserSessionName);
+        httpServletRequest.getSession().removeAttribute(UserSessionName);
         return UserConverter.toUserVO(userDTO);
     }
 }

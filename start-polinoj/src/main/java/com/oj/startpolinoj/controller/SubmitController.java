@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.oj.commonpolinoj.consts.SessionNameConsts.UserSessionName;
+
 @RestController
 @RequestMapping("/api/submit")
 public class SubmitController {
@@ -31,7 +33,7 @@ public class SubmitController {
 
     @PostMapping
     HttpResult<SubmitDTO> submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO, HttpServletRequest httpServletRequest) {
-        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute("user");
+        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute(UserSessionName);
         ProblemSubmitDTO problemSubmitDTO = ProblemConverter.toProblemSubmitDTO(problemSubmitVO);
         problemSubmitDTO.setUserId(userDTO.getId());
         SubmitDTO submitDTO = submitBizService.submitProblem(problemSubmitDTO);

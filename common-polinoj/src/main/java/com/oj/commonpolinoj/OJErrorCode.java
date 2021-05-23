@@ -29,7 +29,13 @@ public enum OJErrorCode {
 
 
     // 000 - 004 submit Service
-    SUBMIT_CODE_TOO_SHORT("000-004-000-000", "提交的代码太短了");
+    SUBMIT_CODE_TOO_SHORT("000-004-000-000", "提交的代码太短了"),
+
+    // 000-005 cos方面
+    UPLOAD_FAILED("000-005-000-000", "上传文件失败"),
+    ZIPFILE_EVEN_ERROR("000-005-000-001", "zip中文件数量不是偶数"),
+    ZIPFILE_NAME_ERROR("000-005-000-002", "zip中文件名称不匹配"),
+    NOFUND_FILE_IN_ZIPFILE("000-005-000-003", "zip中找不到文件"), DOWNLOAD_FAILED("000-005-000-004", "下载失败");
 
 
     String code;

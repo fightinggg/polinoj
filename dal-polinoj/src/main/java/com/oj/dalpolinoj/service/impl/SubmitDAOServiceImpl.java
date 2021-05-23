@@ -63,6 +63,7 @@ public class SubmitDAOServiceImpl implements SubmitDAOService {
         }
         Submit submit = SubmitConverter.toSubmitDO(submitDTO);
         submitMapper.updateById(submit);
+        submit = submitMapper.selectById(submit.getId());
         return SubmitConverter.toSubmitDTO(submit);
     }
 
@@ -78,7 +79,7 @@ public class SubmitDAOServiceImpl implements SubmitDAOService {
     @Override
     public SubmitDTO getSubmitDTO(SubmitGetDTO submitGetDTO) {
         QueryWrapper<Submit> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id",submitGetDTO.getId());
+        queryWrapper.eq("id", submitGetDTO.getId());
 
         Submit submit = submitMapper.selectOne(queryWrapper);
 

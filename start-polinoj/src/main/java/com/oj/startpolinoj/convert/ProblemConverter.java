@@ -53,7 +53,6 @@ public class ProblemConverter {
     public static ProblemGetDTO toProblemGetDTO(ProblemGetVO problemGetVO) {
         ProblemGetDTO problemGetDTO = new ProblemGetDTO();
         problemGetDTO.setProblemId(problemGetVO.getProblemId());
-        problemGetDTO.setOperatorUser(problemGetVO.getOperatorUser());
         return problemGetDTO;
     }
 

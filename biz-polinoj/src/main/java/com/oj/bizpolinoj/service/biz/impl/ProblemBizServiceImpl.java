@@ -62,7 +62,9 @@ public class ProblemBizServiceImpl implements ProblemBizService {
     @Transactional(rollbackFor = Exception.class)
     public ProblemDTO createProblem(ProblemCreateDTO problemCreateDTO) {
 
-        problemCreateDTO.setSource(OjName.POLIN_OJ);
+        if (problemCreateDTO.getSource() == null) {
+            problemCreateDTO.setSource(OjName.POLIN_OJ);
+        }
         ProblemDTO problem = problemService.createProblem(problemCreateDTO);
 
         List<SampleCreateDTO> sampleCreateDTOS = problemCreateDTO.getSample()

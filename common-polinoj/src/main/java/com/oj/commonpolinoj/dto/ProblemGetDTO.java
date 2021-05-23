@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ProblemGetDTO {
     Long problemId;
-    String operatorUser;
+//    String operatorUser;
 }

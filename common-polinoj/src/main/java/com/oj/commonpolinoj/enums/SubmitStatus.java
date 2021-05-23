@@ -19,6 +19,9 @@ public enum SubmitStatus {
     TLE("TLE", 4),
     MLE("MLE", 5),
     CE("CE", 6),
+    RE("RE", 7),
+    PROCESS("PROCESS", 8),
+    MISS("MISS", 9),
     ;
 
 

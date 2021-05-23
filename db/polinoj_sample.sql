@@ -116,3 +116,167 @@ INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (16, 28, '<pre
 -1</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">100.000
 0.000
 6.251</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (17, 29, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+1 2
+112233445566778899 998877665544332211</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+1 + 2 = 3
+
+Case 2:
+112233445566778899 + 998877665544332211 = 1111111111111111110</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (18, 30, '<pre><div style="font-family:Courier New,Courier,monospace;">1
+100</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">1
+
+5050</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (19, 31, '<pre><div style="font-family:Courier New,Courier,monospace;">1 1</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">2</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (20, 32, '<pre><div style="font-family:Courier New,Courier,monospace;">1
+100</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">1
+
+5050</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (21, 33, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+0 0
+1 1
+2
+1 1
+1 1
+3
+-1.5 0
+0 0
+0 1.5
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">0.71
+0.00
+0.75</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (22, 34, '<pre><div style="font-family:Courier New,Courier,monospace;">5
+green
+red
+blue
+red
+red
+3
+pink
+orange
+pink
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">red
+pink</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (23, 35, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (24, 36, '<pre><div style="font-family:Courier New,Courier,monospace;">1 1 3
+1 2 10
+0 0 0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (25, 37, '<pre><div style="font-family:Courier New,Courier,monospace;">5
+green
+red
+blue
+red
+red
+3
+pink
+orange
+pink
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">red
+pink</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (26, 38, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (27, 39, '<pre><div style="font-family:Courier New,Courier,monospace;">1 1 3
+1 2 10
+0 0 0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (28, 40, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (29, 42, '<pre><div style="font-family:Courier New,Courier,monospace;">1 1 3
+1 2 10
+0 0 0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (30, 41, '<pre><div style="font-family:Courier New,Courier,monospace;">5
+green
+red
+blue
+red
+red
+3
+pink
+orange
+pink
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">red
+pink</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (31, 43, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (32, 44, '<pre><div style="font-family:Courier New,Courier,monospace;">1 1 3
+1 2 10
+0 0 0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (33, 45, '<pre><div style="font-family:Courier New,Courier,monospace;">5
+green
+red
+blue
+red
+red
+3
+pink
+orange
+pink
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">red
+pink</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (34, 46, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (35, 47, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (36, 48, '<pre><div style="font-family:Courier New,Courier,monospace;">5
+green
+red
+blue
+red
+red
+3
+pink
+orange
+pink
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">red
+pink</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (37, 49, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5 6 -1 5 4 -7
+7 0 6 -1 1 -6 7 -5</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">Case 1:
+14 1 4
+
+Case 2:
+7 1 6</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (38, 50, '<pre><div style="font-family:Courier New,Courier,monospace;">1 1 3
+1 2 10
+0 0 0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">2
+5</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (39, 68, '<pre><div style="font-family:Courier New,Courier,monospace;">1 2
+3 2 3 1
+0</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">17
+41</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (40, 74, '123', '123');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (41, 75, '1 1', '2');

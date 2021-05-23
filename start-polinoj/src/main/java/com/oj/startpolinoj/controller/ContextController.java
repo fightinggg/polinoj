@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.oj.commonpolinoj.consts.SessionNameConsts.UserSessionName;
+
 @RestController
 @RequestMapping("/api/context")
 public class ContextController {
@@ -22,7 +24,7 @@ public class ContextController {
     @PutMapping
     HttpResult<ContextVO> createContext(@RequestBody ContextCreateVO createVO, HttpServletRequest request) {
         ContextCreateDTO contextCreateDTO = ContextConverter.toDTO(createVO);
-        UserDTO userDTO = (UserDTO) request.getSession().getAttribute("user");
+        UserDTO userDTO = (UserDTO) request.getSession().getAttribute(UserSessionName);
         contextCreateDTO.setOwnerId(userDTO.getId());
 
         ContextDTO context = contextBizService.createContext(contextCreateDTO);
@@ -55,6 +57,4 @@ public class ContextController {
         PageResult<ContextVO> contextVO = ContextConverter.toPageVO(pageResult);
         return HttpResult.success(contextVO);
     }
-
-
 }

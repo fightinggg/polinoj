@@ -292,3 +292,4 @@ INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, sta
 #include<bits/stdc++.h>
 #include<bits/stdc++.h>
 #include<bits/stdc++.h>', 1, 6, 0, 0);
+INSERT INTO polinoj.submit (id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory) VALUES (23, 68, '35898676', 'hjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdfhjgjgjgdfasdf', 1, 6, 0, 0);
