@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -67,7 +68,7 @@ public class COSBizServiceImpl implements COSBizService {
         InputStream inputStream = new ByteArrayInputStream(cosUploadDTO.getContext());
         String path = MinioConsts.samplePath + "/" + cosUploadDTO.getProblemId() + ".zip";
         try {
-            minioService.upload(Path.of(path), inputStream, ContentType.DEFAULT_BINARY);
+            minioService.upload(Paths.get(path), inputStream, ContentType.DEFAULT_BINARY);
             COSDTO cosDTO = new COSDTO();
             cosDTO.setPath(path);
             cosDTO.setFilenames(collect);
@@ -84,7 +85,7 @@ public class COSBizServiceImpl implements COSBizService {
         String path = MinioConsts.samplePath + "/" + cosPreviewDTO.getProblemId() + ".zip";
         cosDTO.setPath(path);
         try {
-            InputStream inputStream = minioService.get(Path.of(path));
+            InputStream inputStream = minioService.get(Paths.get(path));
             ZipInputStream zipInputStream = new ZipInputStream(inputStream);
             List<String> name = new ArrayList<>();
             for (ZipEntry nextEntry = zipInputStream.getNextEntry();
