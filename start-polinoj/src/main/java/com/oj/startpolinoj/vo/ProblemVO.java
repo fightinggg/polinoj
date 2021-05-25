@@ -10,6 +10,7 @@ public class ProblemVO {
     Long problemId;
     String title;
     String description;
+    String hint;
     String input;
     String output;
     List<SampleVO> sampleList;

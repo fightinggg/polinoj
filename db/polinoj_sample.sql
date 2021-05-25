@@ -280,3 +280,22 @@ INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (39, 68, '<pre
 41</div></pre>');
 INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (40, 74, '123', '123');
 INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (41, 75, '1 1', '2');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (42, 76, '<pre><div style="font-family:Courier New,Courier,monospace;">2
+3 5 7 15
+6 4 10296 936 1287 792 1</div></pre>', '<pre><div style="font-family:Courier New,Courier,monospace;">105
+10296</div></pre>');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (43, 77, '1', '1');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (44, 77, '10', '55');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (45, 77, '100000000', '6875');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (46, 78, '1', '1');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (47, 78, '2', '2');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (48, 78, '3', '3');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (49, 79, '1', '1');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (50, 79, '2', '2');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (51, 79, '3', '3');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (52, 80, '1', '1');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (53, 80, '2', '2');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (54, 80, '3', '3');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (55, 81, '1', '1');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (56, 81, '2', '2');
+INSERT INTO polinoj.sample (id, problem_id, input, output) VALUES (57, 81, '3', '3');

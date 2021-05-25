@@ -34,6 +34,7 @@ public class ProblemConverter {
 //        problemVO.setProblemId();
         problemVO.setTitle(problemDTO.getTitle());
         problemVO.setDescription(problemDTO.getDescription());
+        problemVO.setHint(problemDTO.getHint());
         problemVO.setInput(problemDTO.getInput());
         problemVO.setOutput(problemDTO.getOutput());
 //        problemVO.setSampleList();
@@ -65,7 +66,6 @@ public class ProblemConverter {
         sampleVO.setInput(sampleDTO.getInput());
         sampleVO.setOutput(sampleDTO.getOutput());
         return sampleVO;
-
     }
 
     public static ProblemGetDTO toProblemGetDTO(ProblemGetVO problemGetVO) {
@@ -86,8 +86,11 @@ public class ProblemConverter {
         problemCreateDTO.setTime(problemCreateVO.getTime());
         problemCreateDTO.setMemory(problemCreateVO.getMemory());
         problemCreateDTO.setTitle(problemCreateVO.getTitle());
-        problemCreateDTO.setTestSampleDTOList(problemCreateVO.getTest());
+//        problemCreateDTO.setTestSampleDTOList();
         problemCreateDTO.setHint(problemCreateVO.getHint());
+
+        // add
+        problemCreateDTO.setTestSampleDTOList(problemCreateVO.getTest());
         return problemCreateDTO;
 
     }
@@ -97,6 +100,7 @@ public class ProblemConverter {
         problemSubmitDTO.setProblemId(problemSubmitVO.getProblemId());
         problemSubmitDTO.setCode(problemSubmitVO.getCode());
         problemSubmitDTO.setLang(problemSubmitVO.getLang());
+//        problemSubmitDTO.setUserId();
         return problemSubmitDTO;
     }
 
@@ -110,8 +114,6 @@ public class ProblemConverter {
         submitPageDTO.setPageSize(submitPageVO.getPageSize());
         return submitPageDTO;
     }
-
-
 
 
     public static ProblemPullDTO toProblemPullDTO(ProblemPullVO problemPullVO) {
