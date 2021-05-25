@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author wsx
- * @since 2021-04-22
+ * @since 2021-05-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -43,6 +43,10 @@ public class Submit implements Serializable {
     private Long execTime;
 
     private Long execMemory;
+
+    private String ccInfo;
+
+    private String runInfo;
 
 
 }

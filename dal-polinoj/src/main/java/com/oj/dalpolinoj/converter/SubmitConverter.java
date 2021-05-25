@@ -18,6 +18,8 @@ public class SubmitConverter {
         submit.setStatus(submitDTO.getStatus());
         submit.setExecTime(submitDTO.getExecTime());
         submit.setExecMemory(submitDTO.getExecMemory());
+        submit.setCcInfo(submitDTO.getCcInfo());
+        submit.setRunInfo(submitDTO.getRunInfo());
         return submit;
     }
 
@@ -27,20 +29,23 @@ public class SubmitConverter {
         submitDTO.setProblemId(submit.getProblemId());
         submitDTO.setSourceSubmitId(submit.getSourceSubmitId());
         submitDTO.setUserId(submit.getUserId());
+//        submitDTO.setUserName();
         submitDTO.setStatus(submit.getStatus());
         submitDTO.setCode(submit.getCode());
 //        submitDTO.setSubmitTime();
         submitDTO.setExecTime(submit.getExecTime());
         submitDTO.setExecMemory(submit.getExecMemory());
+        submitDTO.setCcInfo(submit.getCcInfo());
+        submitDTO.setRunInfo(submit.getRunInfo());
         return submitDTO;
+
     }
 
     public static List<SubmitDTO> toSubmitDTOList(List<Submit> records) {
-        List<SubmitDTO> submitDTOlist = Lists.newArrayList();
-        for (Submit submit : records) {
-            submitDTOlist.add(toSubmitDTO(submit));
+        List<SubmitDTO> submitDTOlist=Lists.newArrayList();
+        for (Submit submit :records) {
+        	submitDTOlist.add(toSubmitDTO(submit));
         }
         return submitDTOlist;
-
     }
 }

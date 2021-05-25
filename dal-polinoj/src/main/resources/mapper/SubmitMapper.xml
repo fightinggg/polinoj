@@ -12,11 +12,13 @@
         <result column="status" property="status" />
         <result column="exec_time" property="execTime" />
         <result column="exec_memory" property="execMemory" />
+        <result column="cc_info" property="ccInfo" />
+        <result column="run_info" property="runInfo" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory
+        id, problem_id, source_submit_id, code, user_id, status, exec_time, exec_memory, cc_info, run_info
     </sql>
 
 </mapper>

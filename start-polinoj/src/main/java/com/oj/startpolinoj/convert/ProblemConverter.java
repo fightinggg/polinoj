@@ -2,9 +2,27 @@ package com.oj.startpolinoj.convert;
 
 import com.google.common.collect.Lists;
 import com.oj.commonpolinoj.PageResult;
-import com.oj.commonpolinoj.dto.*;
+import com.oj.commonpolinoj.dto.ProblemCreateDTO;
+import com.oj.commonpolinoj.dto.ProblemDTO;
+import com.oj.commonpolinoj.dto.ProblemGetDTO;
+import com.oj.commonpolinoj.dto.ProblemPageDTO;
+import com.oj.commonpolinoj.dto.ProblemPullDTO;
+import com.oj.commonpolinoj.dto.ProblemRemotePageDTO;
+import com.oj.commonpolinoj.dto.ProblemSubmitDTO;
+import com.oj.commonpolinoj.dto.SampleDTO;
+import com.oj.commonpolinoj.dto.SubmitDTO;
+import com.oj.commonpolinoj.dto.SubmitPageDTO;
 import com.oj.commonpolinoj.enums.SubmitStatus;
-import com.oj.startpolinoj.vo.*;
+import com.oj.startpolinoj.vo.ProblemCreateVO;
+import com.oj.startpolinoj.vo.ProblemGetVO;
+import com.oj.startpolinoj.vo.ProblemPageVO;
+import com.oj.startpolinoj.vo.ProblemPullVO;
+import com.oj.startpolinoj.vo.ProblemRemotePageVO;
+import com.oj.startpolinoj.vo.ProblemSubmitVO;
+import com.oj.startpolinoj.vo.ProblemVO;
+import com.oj.startpolinoj.vo.SampleVO;
+import com.oj.startpolinoj.vo.SubmitPageVO;
+import com.oj.startpolinoj.vo.SubmitVO;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
@@ -93,38 +111,7 @@ public class ProblemConverter {
         return submitPageDTO;
     }
 
-    public static List<SubmitVO> toSubmitResultVOList(List<SubmitDTO> submitDTOS) {
-        List<SubmitVO> submitVOlist = Lists.newArrayList();
-        for (SubmitDTO submitDTO : submitDTOS) {
-            submitVOlist.add(toSubmitResultVO(submitDTO));
-        }
-        return submitVOlist;
-    }
 
-    private static SubmitVO toSubmitResultVO(SubmitDTO submitDTO) {
-        SubmitVO submitVO = new SubmitVO();
-        submitVO.setId(submitDTO.getId());
-        submitVO.setProblemId(submitDTO.getProblemId());
-        submitVO.setUserId(submitDTO.getUserId());
-        submitVO.setUserName(submitDTO.getUserName());
-        // 把状态代码变为状态字符串
-        submitVO.setStatus(SubmitStatus.getById(submitDTO.getStatus()));
-        submitVO.setCode(submitDTO.getCode());
-        submitVO.setSubmitTime(submitDTO.getSubmitTime());
-        submitVO.setExecTime(submitDTO.getExecTime());
-        submitVO.setExecMemory(submitDTO.getExecMemory());
-        return submitVO;
-    }
-
-
-    public static PageResult<SubmitVO> toSubmitResultVOPage(PageResult<SubmitDTO> submitResultDTOs) {
-        PageResult<SubmitVO> pageResult = new PageResult<>();
-        pageResult.setList((toSubmitResultVOList(submitResultDTOs.getList())));
-        pageResult.setPageSize(submitResultDTOs.getPageSize());
-        pageResult.setPageIndex(submitResultDTOs.getPageIndex());
-        pageResult.setTotal(submitResultDTOs.getTotal());
-        return pageResult;
-    }
 
 
     public static ProblemPullDTO toProblemPullDTO(ProblemPullVO problemPullVO) {

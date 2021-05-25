@@ -4,14 +4,16 @@ import lombok.Data;
 
 @Data
 public class SubmitDTO {
-    Long id;
-    Long problemId;
-    String sourceSubmitId;
-    Long userId;
-    String userName;
-    Integer status;
-    String code;
-    String submitTime;
-    Long execTime;
-    Long execMemory;
+    private Long id;
+    private Long problemId;
+    private String sourceSubmitId;
+    private Long userId;
+    private String userName;
+    private Integer status;
+    private String code;
+    private String submitTime;
+    private Long execTime;
+    private Long execMemory;
+    private String ccInfo;
+    private String runInfo;
 }

@@ -45,7 +45,7 @@ public class SubmitController {
     HttpResult<PageResult<SubmitVO>> getProblemSubmitResult(SubmitPageVO submitPageVO) {
         SubmitPageDTO submitPageDTO = ProblemConverter.toSubmitResultGetDTO(submitPageVO);
         PageResult<SubmitDTO> submitResultDTOs = submitBizService.getProblemSubmitResult(submitPageDTO);
-        PageResult<SubmitVO> submitVOPageResult = ProblemConverter.toSubmitResultVOPage(submitResultDTOs);
+        PageResult<SubmitVO> submitVOPageResult = SubmitConverter.toSubmitResultVOPage(submitResultDTOs);
         return HttpResult.success(submitVOPageResult);
     }
 

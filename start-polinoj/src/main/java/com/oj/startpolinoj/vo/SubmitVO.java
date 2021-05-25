@@ -2,15 +2,19 @@ package com.oj.startpolinoj.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class SubmitVO {
-    Long id;
-    Long problemId;
-    Long userId;
-    String userName;
-    String status;
-    String code;
-    String submitTime;
-    Long execTime;
-    Long execMemory;
+    private Long id;
+    private Long problemId;
+    private Long userId;
+    private String userName;
+    private String status;
+    private String code;
+    private String submitTime;
+    private Long execTime;
+    private Long execMemory;
+    private String ccInfo;
+    private List<SampleTestResultVO> runInfo;
 }

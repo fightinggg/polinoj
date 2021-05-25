@@ -81,6 +81,8 @@ public class PolinOjSandboxSalService {
             submitDTO.setExecTime(maxTime.longValue());
             submitDTO.setExecMemory(maxMem.longValue());
             submitDTO.setStatus(sampleTestResultDTO.getStatus());
+            submitDTO.setCcInfo(sampleTestResultDTO.getCcInfo());
+            submitDTO.setRunInfo(JSON.toJSONString(sampleTestResultDTO.getSampleTestResults()));
             return submitDTO;
         } catch (IOException e) {
             log.error("", e);
