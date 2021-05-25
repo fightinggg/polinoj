@@ -40,10 +40,11 @@ public class ProblemController {
     }
 
     @PostMapping
-    ProblemVO createProblem(@RequestBody ProblemCreateVO problemCreateVO) {
+    HttpResult<ProblemVO> createProblem(@RequestBody ProblemCreateVO problemCreateVO) {
         ProblemCreateDTO problemCreateDTO = ProblemConverter.toProblemCreateDTO(problemCreateVO);
         ProblemDTO problem = problemBizService.createProblem(problemCreateDTO);
-        return ProblemConverter.toProblemVO(problem);
+        final ProblemVO problemVO = ProblemConverter.toProblemVO(problem);
+        return HttpResult.success(problemVO);
     }
 
 
