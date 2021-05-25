@@ -62,8 +62,8 @@ public class ProblemServiceImpl implements ProblemService {
 
 
             SampleTestRequestDTO sampleTestRequestDTO = new SampleTestRequestDTO();
-            // TODO 默认编译时间为10秒
-            sampleTestRequestDTO.setCcTimes(10L);
+            // TODO 默认编译时间为20秒
+            sampleTestRequestDTO.setCcTimes(20L);
             sampleTestRequestDTO.setCode(Base64Utils.encodeToString(problemSubmitDTO.getCode().getBytes()));
             String path = MinioConsts.samplePath + "/" + problemSubmitDTO.getProblemId() + ".zip";
             sampleTestRequestDTO.setCosPath(path);
