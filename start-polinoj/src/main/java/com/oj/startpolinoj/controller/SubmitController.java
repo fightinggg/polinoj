@@ -42,7 +42,7 @@ public class SubmitController {
 
 
     @GetMapping("/status")
-    HttpResult<PageResult<SubmitVO>> getProblemSubmitResult(SubmitPageVO submitPageVO) {
+    HttpResult<PageResult<SubmitVO>> pageSubmit(SubmitPageVO submitPageVO) {
         SubmitPageDTO submitPageDTO = ProblemConverter.toSubmitResultGetDTO(submitPageVO);
         PageResult<SubmitDTO> submitResultDTOs = submitBizService.getProblemSubmitResult(submitPageDTO);
         PageResult<SubmitVO> submitVOPageResult = SubmitConverter.toSubmitResultVOPage(submitResultDTOs);

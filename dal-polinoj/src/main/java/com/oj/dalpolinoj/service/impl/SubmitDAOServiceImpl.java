@@ -52,6 +52,7 @@ public class SubmitDAOServiceImpl implements SubmitDAOService {
         problemDTOPageResult.setList(problemDTOS);
         problemDTOPageResult.setPageIndex(submitPageDTO.getPageIndex());
         problemDTOPageResult.setPageSize(submitPageDTO.getPageSize());
+        problemDTOPageResult.setTotal((int) problemPage.getTotal());
         return problemDTOPageResult;
     }
 
