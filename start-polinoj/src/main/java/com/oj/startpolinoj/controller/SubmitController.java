@@ -23,7 +23,7 @@ public class SubmitController {
     SubmitBizService submitBizService;
 
     @GetMapping
-    SubmitVO getSubmit(String id) {
+    SubmitVO getSubmit(Long id) {
         SubmitGetDTO submitGetDTO = new SubmitGetDTO();
         submitGetDTO.setId(id);
         SubmitDTO submitDTO = submitBizService.getSubmitDTO(submitGetDTO);

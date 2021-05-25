@@ -19,6 +19,12 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
+
+		<dependency>
 			<groupId>com.oj.polinoj-sandbox</groupId>
 			<artifactId>open-api</artifactId>
 		</dependency>

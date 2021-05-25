@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class SubmitGetDTO {
-    String id;
+    Long id;
 }

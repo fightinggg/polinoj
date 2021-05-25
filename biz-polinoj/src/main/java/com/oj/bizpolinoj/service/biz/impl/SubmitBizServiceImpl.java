@@ -47,13 +47,7 @@ public class SubmitBizServiceImpl implements SubmitBizService {
                 newStatus.setId(oldStatus.getId());
                 newStatus = submitService.updateSubmit(newStatus);
                 return newStatus;
-            } else if (OjName.POLIN_OJ.equals(problem.getSource())) {
-                SubmitDTO newStatus = polinOjSandboxSalService.getStatus(submitDTO.getSourceSubmitId());
-                SubmitDTO oldStatus = submitService.getSubmitBySubmitId(submitDTO.getSourceSubmitId());
-                newStatus.setId(oldStatus.getId());
-                newStatus = submitService.updateSubmit(newStatus);
-                return newStatus;
-            }
+            } 
         }
         return submitDTO;
     }

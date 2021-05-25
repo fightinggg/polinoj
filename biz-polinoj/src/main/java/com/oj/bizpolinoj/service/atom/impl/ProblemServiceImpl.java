@@ -10,7 +10,7 @@ import com.oj.commonpolinoj.dto.*;
 import com.oj.bizpolinoj.service.atom.ProblemService;
 import com.oj.commonpolinoj.enums.OjName;
 import com.oj.dalpolinoj.service.ProblemDAOService;
-import com.oj.polinojsandbox.openapi.SampleTestRequestDTO;
+import com.oj.polinojsandbox.openapi.SubmitCodeMessage;
 import com.oj.salpolinoj.service.HduOjSalService;
 import com.oj.salpolinoj.service.PolinOjSandboxSalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ import org.springframework.util.Base64Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
@@ -59,25 +60,29 @@ public class ProblemServiceImpl implements ProblemService {
             submitDTO.setUserId(problemSubmitDTO.getUserId());
             return submitDAOService.createSubmitResultDTO(submitDTO);
         } else if (OjName.POLIN_OJ.equals(problem.getSource())) {
-
-
-            SampleTestRequestDTO sampleTestRequestDTO = new SampleTestRequestDTO();
-            // TODO 默认编译时间为20秒
-            sampleTestRequestDTO.setCcTimes(20L);
-            sampleTestRequestDTO.setCode(Base64Utils.encodeToString(problemSubmitDTO.getCode().getBytes()));
-            String path = MinioConsts.samplePath + "/" + problemSubmitDTO.getProblemId() + ".zip";
-            sampleTestRequestDTO.setCosPath(path);
-            sampleTestRequestDTO.setMemory(problem.getMemory());
-            sampleTestRequestDTO.setProblemId(problem.getId());
-            sampleTestRequestDTO.setRunTimes(problem.getTime());
-            // TODO 不支持md5
-            sampleTestRequestDTO.setSamplesMD5("1");
-
-            SubmitDTO submitDTO = polinOjSandboxSalService.submitCode(sampleTestRequestDTO);
+            SubmitDTO submitDTO = new SubmitDTO();
             submitDTO.setProblemId(problemSubmitDTO.getProblemId());
             submitDTO.setCode(problemSubmitDTO.getCode());
             submitDTO.setUserId(problemSubmitDTO.getUserId());
-            return submitDAOService.createSubmitResultDTO(submitDTO);
+            submitDTO.setRunInfo("[]");
+            final SubmitDTO submitResultDTO = submitDAOService.createSubmitResultDTO(submitDTO);
+
+            SubmitCodeMessage submitCodeMessage = new SubmitCodeMessage();
+            // TODO 默认编译时间为20秒
+            submitCodeMessage.setCcTimes(20L);
+            submitCodeMessage.setCode(Base64Utils.encodeToString(problemSubmitDTO.getCode().getBytes()));
+            String path = MinioConsts.samplePath + "/" + problemSubmitDTO.getProblemId() + ".zip";
+            submitCodeMessage.setCosPath(path);
+            submitCodeMessage.setMemory(problem.getMemory());
+            submitCodeMessage.setProblemId(problem.getId());
+            submitCodeMessage.setRunTimes(problem.getTime());
+            submitCodeMessage.setSubmitId(submitResultDTO.getId());
+            // TODO 不支持md5
+            submitCodeMessage.setSamplesMD5("1");
+
+            polinOjSandboxSalService.submitCode(submitCodeMessage);
+
+            return submitResultDTO;
         } else {
             throw OJException.buildOJException(OJErrorCode.UN_SUPPORT_ERROR);
         }
@@ -100,12 +105,6 @@ public class ProblemServiceImpl implements ProblemService {
                 final ProblemDTO problem = problemDAOService.getProblem(problemGetDTO);
                 if (OjName.HDU_NAME.equals(problem.getSource())) {
                     SubmitDTO newStatus = hduOjSalService.getSubmitById(submitDTO.getSourceSubmitId());
-                    SubmitDTO oldStatus = submitDAOService.getSubmitBySubmitId(submitDTO.getSourceSubmitId());
-                    newStatus.setId(oldStatus.getId());
-                    newStatus = submitDAOService.updateSubmit(newStatus);
-                    submitDTOS.set(i, newStatus);
-                } else if (OjName.POLIN_OJ.equals(problem.getSource())) {
-                    SubmitDTO newStatus = polinOjSandboxSalService.getStatus(submitDTO.getSourceSubmitId());
                     SubmitDTO oldStatus = submitDAOService.getSubmitBySubmitId(submitDTO.getSourceSubmitId());
                     newStatus.setId(oldStatus.getId());
                     newStatus = submitDAOService.updateSubmit(newStatus);

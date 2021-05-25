@@ -5,8 +5,7 @@ import com.google.common.collect.Lists;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.SubmitDTO;
 import com.oj.commonpolinoj.enums.SubmitStatus;
-import com.oj.polinojsandbox.openapi.SampleTestResult;
-import com.oj.polinojsandbox.openapi.SampleTestResultDTO;
+import com.oj.polinojsandbox.openapi.RunCodeMessage;
 import com.oj.startpolinoj.vo.SampleTestResultVO;
 import com.oj.startpolinoj.vo.SubmitVO;
 
@@ -35,20 +34,20 @@ public class SubmitConverter {
         submitVO.setExecMemory(submitDTO.getExecMemory());
         submitVO.setCcInfo(submitDTO.getCcInfo());
 
-        List<SampleTestResult> sampleTestResultDTOS = JSON.parseArray(submitDTO.getRunInfo(), SampleTestResult.class);
+        List<RunCodeMessage> sampleTestResultDTOS = JSON.parseArray(submitDTO.getRunInfo(), RunCodeMessage.class);
         submitVO.setRunInfo(toSampleTestResultVOList(sampleTestResultDTOS));
         return submitVO;
     }
 
-    private static List<SampleTestResultVO> toSampleTestResultVOList(List<SampleTestResult> sampleTestResultDTOS) {
+    private static List<SampleTestResultVO> toSampleTestResultVOList(List<RunCodeMessage> sampleTestResultDTOS) {
         List<SampleTestResultVO> sampleTestResultVOlist=Lists.newArrayList();
-        for (SampleTestResult sampleTestResult :sampleTestResultDTOS) {
+        for (RunCodeMessage sampleTestResult :sampleTestResultDTOS) {
         	sampleTestResultVOlist.add(toSampleTestResultVO(sampleTestResult));
         }
         return sampleTestResultVOlist;
     }
 
-    private static SampleTestResultVO toSampleTestResultVO(SampleTestResult sampleTestResultDTO) {
+    private static SampleTestResultVO toSampleTestResultVO(RunCodeMessage sampleTestResultDTO) {
         SampleTestResultVO sampleTestResultVO = new SampleTestResultVO();
         sampleTestResultVO.setTimes(sampleTestResultDTO.getTimes());
         sampleTestResultVO.setMemory(sampleTestResultDTO.getMemory());
