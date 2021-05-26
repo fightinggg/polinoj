@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     <T> HttpResult<T> handlerException(Exception e) {
         log.error("http request handler failed: ", e);
-        return HttpResult.failed(OJErrorCode.UNKNOWN_ERROR);
+        return HttpResult.failed(OJErrorCode.UNKNOWN_ERROR.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(OJException.class)
