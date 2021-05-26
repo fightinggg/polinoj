@@ -3,6 +3,7 @@ package com.oj.bizpolinoj;
 import com.alibaba.fastjson.JSON;
 import com.oj.commonpolinoj.dto.SubmitDTO;
 import com.oj.commonpolinoj.dto.SubmitGetDTO;
+import com.oj.commonpolinoj.enums.SubmitStatus;
 import com.oj.dalpolinoj.service.SubmitDAOService;
 import com.oj.polinojsandbox.openapi.CCCodeMessage;
 import com.oj.polinojsandbox.openapi.FinalCodeMessage;
@@ -28,6 +29,7 @@ public class KafkaSubmitCodeComponent {
         SubmitDTO submitDTO = new SubmitDTO();
         submitDTO.setId(ccCodeMessage.getSubmitId());
         submitDTO.setCcInfo(ccCodeMessage.getCcInfo());
+        submitDTO.setStatus(SubmitStatus.PROCESS.getCode());
         // TODO CC Time
         //submitDTO.setCcTime(ccCodeMessage.getCcTime());
         submitDAOService.updateSubmit(submitDTO);
