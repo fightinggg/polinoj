@@ -9,6 +9,7 @@ import com.oj.startpolinoj.convert.SubmitConverter;
 import com.oj.startpolinoj.vo.ProblemSubmitVO;
 import com.oj.startpolinoj.vo.SubmitPageVO;
 import com.oj.startpolinoj.vo.SubmitVO;
+import com.taptap.ratelimiter.annotation.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class SubmitController {
     @Autowired
     SubmitBizService submitBizService;
 
+
     @GetMapping
     SubmitVO getSubmit(Long id) {
         SubmitGetDTO submitGetDTO = new SubmitGetDTO();
@@ -32,12 +34,18 @@ public class SubmitController {
 
 
     @PostMapping
+    @RateLimit(rate = 1, rateInterval = "60s", rateExpression = "${spring.ratelimiter.permin.submit.max}", customKeyFunction = "getSubmitProblemKey")
     HttpResult<SubmitDTO> submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO, HttpServletRequest httpServletRequest) {
         UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute(UserSessionName);
         ProblemSubmitDTO problemSubmitDTO = ProblemConverter.toProblemSubmitDTO(problemSubmitVO);
         problemSubmitDTO.setUserId(userDTO.getId());
         SubmitDTO submitDTO = submitBizService.submitProblem(problemSubmitDTO);
         return HttpResult.success(submitDTO);
+    }
+
+    public String getSubmitProblemKey(ProblemSubmitVO problemSubmitVO, HttpServletRequest httpServletRequest) {
+        UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute(UserSessionName);
+        return String.valueOf(userDTO.getId());
     }
 
 
