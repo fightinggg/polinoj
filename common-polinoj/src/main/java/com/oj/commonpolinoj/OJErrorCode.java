@@ -35,8 +35,11 @@ public enum OJErrorCode {
     UPLOAD_FAILED("000-005-000-000", "上传文件失败"),
     ZIPFILE_EVEN_ERROR("000-005-000-001", "zip中文件数量不是偶数"),
     ZIPFILE_NAME_ERROR("000-005-000-002", "zip中文件名称不匹配"),
-    NOFUND_FILE_IN_ZIPFILE("000-005-000-003", "zip中找不到文件"), DOWNLOAD_FAILED("000-005-000-004", "下载失败");
+    NOFUND_FILE_IN_ZIPFILE("000-005-000-003", "zip中找不到文件"),
+    DOWNLOAD_FAILED("000-005-000-004", "下载失败"),
 
+    // 000-006 context
+    CONTEXT_NOT_BEGIN("000-006-000-000", "比赛没有开始");
 
     String code;
 

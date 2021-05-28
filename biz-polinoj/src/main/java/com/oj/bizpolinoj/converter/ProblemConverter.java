@@ -18,7 +18,7 @@ public class ProblemConverter {
 //        problemCreateDTO.setTestSampleDTOList();
         problemCreateDTO.setHint(problem.getHint());
         return problemCreateDTO;
-
-
     }
+
+
 }

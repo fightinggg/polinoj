@@ -5,11 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oj.commonpolinoj.OJErrorCode;
 import com.oj.commonpolinoj.OJException;
 import com.oj.commonpolinoj.PageResult;
-import com.oj.commonpolinoj.dto.ProblemDTO;
-import com.oj.commonpolinoj.dto.SubmitDTO;
-import com.oj.commonpolinoj.dto.SubmitGetDTO;
-import com.oj.commonpolinoj.dto.SubmitPageDTO;
-import com.oj.dalpolinoj.converter.ProblemConverter;
+import com.oj.commonpolinoj.dto.*;
 import com.oj.dalpolinoj.converter.SubmitConverter;
 import com.oj.dalpolinoj.domin.Submit;
 import com.oj.dalpolinoj.mapper.SubmitMapper;
@@ -29,8 +25,9 @@ public class SubmitDAOServiceImpl implements SubmitDAOService {
 
 
     @Override
-    public SubmitDTO createSubmitResultDTO(SubmitDTO submitDTO) {
+    public SubmitDTO createSubmit(SubmitDTO submitDTO) {
         Submit submit = SubmitConverter.toSubmitDO(submitDTO);
+        submit.setSubmitTime(System.currentTimeMillis());
         submitMapper.insert(submit);
         return SubmitConverter.toSubmitDTO(submit);
     }
@@ -85,6 +82,14 @@ public class SubmitDAOServiceImpl implements SubmitDAOService {
         Submit submit = submitMapper.selectOne(queryWrapper);
 
         return SubmitConverter.toSubmitDTO(submit);
+    }
+
+    @Override
+    public List<SubmitDTO> getContextRankList(ContextRankGetDTO getDTO) {
+        QueryWrapper<Submit> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("context_id", getDTO.getContextId());
+        final List<Submit> submits = submitMapper.selectList(queryWrapper);
+        return SubmitConverter.toSubmitDTOList(submits);
     }
 
 }

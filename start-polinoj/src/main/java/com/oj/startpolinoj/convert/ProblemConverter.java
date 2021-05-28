@@ -98,10 +98,12 @@ public class ProblemConverter {
     public static ProblemSubmitDTO toProblemSubmitDTO(ProblemSubmitVO problemSubmitVO) {
         ProblemSubmitDTO problemSubmitDTO = new ProblemSubmitDTO();
         problemSubmitDTO.setProblemId(problemSubmitVO.getProblemId());
+        problemSubmitDTO.setContextId(problemSubmitVO.getContextId());
         problemSubmitDTO.setCode(problemSubmitVO.getCode());
         problemSubmitDTO.setLang(problemSubmitVO.getLang());
 //        problemSubmitDTO.setUserId();
         return problemSubmitDTO;
+
     }
 
     public static SubmitPageDTO toSubmitResultGetDTO(SubmitPageVO submitPageVO) {

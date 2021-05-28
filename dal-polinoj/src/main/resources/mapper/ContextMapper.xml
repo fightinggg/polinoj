@@ -9,11 +9,12 @@
         <result column="begin_time" property="beginTime" />
         <result column="end_time" property="endTime" />
         <result column="owner_id" property="ownerId" />
+        <result column="describtion" property="describtion" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, begin_time, end_time, owner_id
+        id, name, begin_time, end_time, owner_id, describtion
     </sql>
 
 </mapper>

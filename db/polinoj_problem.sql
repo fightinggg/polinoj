@@ -61,7 +61,12 @@ For a given request list, you are to compute the total time spent to fulfill the
 INSERT INTO polinoj.problem (id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count) VALUES (75, 'A+B', 'no hint', 'A B', 209, 'A+B', 'polinoj', 10, 'A+B problem In PolinOJ ', null, null, 0, 0);
 INSERT INTO polinoj.problem (id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count) VALUES (76, 'The least common multiple (LCM) of a set of positive integers is the smallest positive integer which is divisible by all the numbers in the set. For example, the LCM of 5, 7 and 15 is 105.', null, 'Input will consist of multiple problem instances. The first line of the input will contain a single integer indicating the number of problem instances. Each instance will consist of a single line of the form m n1 n2 n3 ... nm where m is the number of integers in the set and n1 ... nm are the integers. All integers will be positive and lie within the range of a 32-bit integer.', null, 'For each problem instance, output a single line containing the corresponding LCM. All results will lie in the range of a 32-bit integer.', 'hdu', null, 'Least Common Multiple', null, '1019', 0, 0);
 INSERT INTO polinoj.problem (id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count) VALUES (77, '斐波那契数列是自然界中常出现的数列，很多植物的花瓣都呈现斐波那契数列的变化。
-斐波那契数列以递归的形式给出，当$i\\gt2$时，有$a_i=a_{i-1}+a_{i-2}$，当$i\\le2$时，$a_i=1$
-现在你需要计算斐波那契数列的第$i$项
-', '- 保证$i\\lt10^8$
-- 由于答案非常大，你只需要输出数列在十进制下的最后的4位即可', '每个测试数据只有一个输入，输入一个整数$i$', 512, '你需要输出斐波那契数列的第i项', 'polinoj', 1, 'wsx的斐波那契数列', null, null, 0, 0);
+斐波那契数列以递归的形式给出，当i&gt;2时，有a[i]=a[i-1]+a[i-2]，当i&le;2时，a[i]=1
+现在你需要计算斐波那契数列的第i项
+', '1.保证i<50000000
+2.由于答案非常大，你只需要输出数列在对998244353取模后的结果即可', '每个测试数据只有一个输入，输入一个整数i', 512, '你需要输出斐波那契数列的第i项', 'polinoj', 1, 'wsx的斐波那契数列', null, null, 0, 0);
+INSERT INTO polinoj.problem (id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count) VALUES (78, 'A positive integer is called a "$Yiding Number$" when it can be obtained by one of the following two rules.
+Rule $1$: The positive integer $1$ is a "$Yiding Number$".
+Rule $2$: If $n$ is a "$Yiding Number$", then $5n+13$, $13n+5$, $5n-13$, $13n-5$ are also "$Yiding Numbers$".
+Now, given a positive integer n, please determine it is a "Yiding Number" or not.', null, 'There is an integer $T$ in the first line, indicating that there are $T$ test cases;
+For the next $T$ lines, each line contains a positive integer $n (n<=1000000)$.', null, 'For each test cases, output "Yes" if $n$ is a "$Yiding Number$", otherwise output "No".', 'hdu', null, 'Yiding Number', null, '6937', 0, 0);

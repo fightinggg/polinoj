@@ -1,5 +1,7 @@
 package com.oj.bizpolinoj.service.biz.impl;
 
+import com.oj.bizpolinoj.converter.SubmitConverter;
+import com.oj.bizpolinoj.domain.bo.SubmitBO;
 import com.oj.bizpolinoj.service.atom.ProblemService;
 import com.oj.bizpolinoj.service.atom.UserService;
 import com.oj.bizpolinoj.service.biz.SubmitBizService;
@@ -14,6 +16,9 @@ import com.oj.salpolinoj.service.HduOjSalService;
 import com.oj.salpolinoj.service.PolinOjSandboxSalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SubmitBizServiceImpl implements SubmitBizService {
@@ -47,7 +52,7 @@ public class SubmitBizServiceImpl implements SubmitBizService {
                 newStatus.setId(oldStatus.getId());
                 newStatus = submitService.updateSubmit(newStatus);
                 return newStatus;
-            } 
+            }
         }
         return submitDTO;
     }
@@ -61,7 +66,7 @@ public class SubmitBizServiceImpl implements SubmitBizService {
     }
 
     @Override
-    public PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO) {
+    public PageResult<SubmitBO> getProblemSubmitResult(SubmitPageDTO submitPageDTO) {
         if (submitPageDTO.getPageIndex() == null) {
             submitPageDTO.setPageIndex(1);
         }
@@ -69,15 +74,18 @@ public class SubmitBizServiceImpl implements SubmitBizService {
             submitPageDTO.setPageSize(10);
         }
 
-        PageResult<SubmitDTO> problemSubmitResult = problemService.getProblemSubmitResult(submitPageDTO);
+        PageResult<SubmitDTO> submitResultPage = problemService.getProblemSubmitResult(submitPageDTO);
+        PageResult<SubmitBO> submitBOPageResult = SubmitConverter.toSubmitBOPage(submitResultPage);
 
-        problemSubmitResult.getList().forEach(o -> {
+        final List<SubmitDTO> listDTO = submitResultPage.getList();
+        final List<SubmitBO> listBO = submitBOPageResult.getList();
+        for (int i = 0; i < listDTO.size(); i++) {
             UserGetDTO userGetDTO = new UserGetDTO();
-            userGetDTO.setId(o.getUserId());
+            userGetDTO.setId(listDTO.get(i).getUserId());
             UserDTO user = userService.getUser(userGetDTO);
-            o.setUserName(user.getUsername());
-        });
+            listBO.get(i).setUserName(user.getUsername());
+        }
 
-        return problemSubmitResult;
+        return submitBOPageResult;
     }
 }

@@ -1,29 +1,57 @@
 package com.oj.bizpolinoj;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.oj.commonpolinoj.dto.SubmitDTO;
 import com.oj.commonpolinoj.dto.SubmitGetDTO;
 import com.oj.commonpolinoj.enums.SubmitStatus;
 import com.oj.dalpolinoj.service.SubmitDAOService;
-import com.oj.polinojsandbox.openapi.CCCodeMessage;
-import com.oj.polinojsandbox.openapi.FinalCodeMessage;
-import com.oj.polinojsandbox.openapi.KafkaTopicConsts;
-import com.oj.polinojsandbox.openapi.RunCodeMessage;
+import com.oj.polinojsandbox.openapi.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 @Slf4j
 @Component
 public class KafkaSubmitCodeComponent {
     @Autowired
     SubmitDAOService submitDAOService;
+    @Autowired
+    KafkaSubmitCodeComponent self;
 
-    @KafkaListener(id = KafkaTopicConsts.ccCodeGroup, topics = KafkaTopicConsts.ccCodeTopic)
+    Map<String, Function<JSONObject, Object>> dispatcher = new HashMap<>();
+
+    @PostConstruct
+    void postConstruct() {
+        dispatcher.put(KafkaTopicConsts.ccCodeType, (o) -> {
+            self.listenCC(o.toJavaObject(CCCodeMessage.class));
+            return null;
+        });
+        dispatcher.put(KafkaTopicConsts.runCodeType, (o) -> {
+            self.listenRun(o.toJavaObject(RunCodeMessage.class));
+            return null;
+        });
+        dispatcher.put(KafkaTopicConsts.finalCodeType, (o) -> {
+            self.listenFinal(o.toJavaObject(FinalCodeMessage.class));
+            return null;
+        });
+    }
+
+    @KafkaListener(id = KafkaTopicConsts.testResultGroup, topics = KafkaTopicConsts.testResultTopic)
+    public void listen(String sampleTestCodeMessage) {
+        final JSONObject jsonObject = JSON.parseObject(sampleTestCodeMessage);
+        dispatcher.get(jsonObject.getString("type")).apply(jsonObject.getJSONObject("data"));
+    }
+
+
     public void listenCC(CCCodeMessage ccCodeMessage) {
         log.info("listenCC: {}", ccCodeMessage);
         SubmitDTO submitDTO = new SubmitDTO();
@@ -36,7 +64,6 @@ public class KafkaSubmitCodeComponent {
     }
 
     @Transactional
-    @KafkaListener(id = KafkaTopicConsts.runCodeGroup, topics = KafkaTopicConsts.runCodeTopic)
     public void listenRun(RunCodeMessage runCodeMessage) {
         log.info("listenRun: {}", runCodeMessage);
         SubmitGetDTO submitGetDTO = new SubmitGetDTO();
@@ -49,8 +76,7 @@ public class KafkaSubmitCodeComponent {
     }
 
 
-    @KafkaListener(id = KafkaTopicConsts.finalCodeGroup, topics = KafkaTopicConsts.finalCodeTopic)
-    public void listenRun(FinalCodeMessage finalCodeMessage) {
+    public void listenFinal(FinalCodeMessage finalCodeMessage) {
         log.info("listenFinal: {}", finalCodeMessage);
         SubmitGetDTO submitGetDTO = new SubmitGetDTO();
         submitGetDTO.setId(finalCodeMessage.getSubmitId());
@@ -59,6 +85,4 @@ public class KafkaSubmitCodeComponent {
         submitDTO.setExecTime(finalCodeMessage.getTimes());
         submitDAOService.updateSubmit(submitDTO);
     }
-
-
 }

@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.oj.commonpolinoj.consts.SessionNameConsts.UserSessionName;
 
 @RestController
@@ -50,6 +54,16 @@ public class ContextController {
         return HttpResult.success(contextVO);
     }
 
+    @GetMapping("/rank")
+    HttpResult<ContextRankListVO> getContextRankList(@RequestParam Long contextId) {
+        ContextRankGetDTO getDTO = new ContextRankGetDTO();
+        getDTO.setContextId(contextId);
+        final ContextRankListDTO contextRankList = contextBizService.getContextRankList(getDTO);
+        ContextRankListVO contextRankVOS = ContextConverter.toContextRankListVO(contextRankList);
+        return HttpResult.success(contextRankVOS);
+    }
+
+
     @PostMapping("/page")
     HttpResult<PageResult<ContextVO>> pageContext(@RequestBody ContextPageVO pageDTO) {
         ContextPageDTO contextPageDTO = ContextConverter.toPageDTO(pageDTO);
@@ -57,4 +71,5 @@ public class ContextController {
         PageResult<ContextVO> contextVO = ContextConverter.toPageVO(pageResult);
         return HttpResult.success(contextVO);
     }
+
 }

@@ -11,4 +11,6 @@ public interface ContextBizService {
     ContextDTO getContext(ContextGetDTO contextGetDTO);
 
     PageResult<ContextDTO> pageContext(ContextPageDTO pageDTO);
+
+    ContextRankListDTO getContextRankList(ContextRankGetDTO getDTO);
 }

@@ -1,5 +1,6 @@
 package com.oj.startpolinoj.controller;
 
+import com.oj.bizpolinoj.domain.bo.SubmitBO;
 import com.oj.bizpolinoj.service.biz.SubmitBizService;
 import com.oj.commonpolinoj.HttpResult;
 import com.oj.commonpolinoj.PageResult;
@@ -52,7 +53,7 @@ public class SubmitController {
     @GetMapping("/status")
     HttpResult<PageResult<SubmitVO>> pageSubmit(SubmitPageVO submitPageVO) {
         SubmitPageDTO submitPageDTO = ProblemConverter.toSubmitResultGetDTO(submitPageVO);
-        PageResult<SubmitDTO> submitResultDTOs = submitBizService.getProblemSubmitResult(submitPageDTO);
+        PageResult<SubmitBO> submitResultDTOs = submitBizService.getProblemSubmitResult(submitPageDTO);
         PageResult<SubmitVO> submitVOPageResult = SubmitConverter.toSubmitResultVOPage(submitResultDTOs);
         return HttpResult.success(submitVOPageResult);
     }

@@ -10,11 +10,13 @@
         <result column="slat" property="slat" />
         <result column="email" property="email" />
         <result column="telephone" property="telephone" />
+        <result column="qq_number" property="qqNumber" />
+        <result column="weixin_number" property="weixinNumber" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, username, password, slat, email, telephone
+        id, username, password, slat, email, telephone, qq_number, weixin_number
     </sql>
 
 </mapper>

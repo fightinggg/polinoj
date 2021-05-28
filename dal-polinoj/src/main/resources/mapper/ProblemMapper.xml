@@ -17,11 +17,12 @@
         <result column="source_id" property="sourceId" />
         <result column="ac_count" property="acCount" />
         <result column="all_count" property="allCount" />
+        <result column="hidden" property="hidden" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count
+        id, description, hint, input, memory, output, source, time, title, author, source_id, ac_count, all_count, hidden
     </sql>
 
 </mapper>

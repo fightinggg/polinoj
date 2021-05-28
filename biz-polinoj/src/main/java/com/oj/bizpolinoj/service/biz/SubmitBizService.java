@@ -1,5 +1,6 @@
 package com.oj.bizpolinoj.service.biz;
 
+import com.oj.bizpolinoj.domain.bo.SubmitBO;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.ProblemSubmitDTO;
 import com.oj.commonpolinoj.dto.SubmitDTO;
@@ -11,6 +12,6 @@ public interface SubmitBizService {
 
     SubmitDTO submitProblem(ProblemSubmitDTO toProblemSubmitDTO);
 
-    PageResult<SubmitDTO> getProblemSubmitResult(SubmitPageDTO submitPageDTO);
+    PageResult<SubmitBO> getProblemSubmitResult(SubmitPageDTO submitPageDTO);
 
 }

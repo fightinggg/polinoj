@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author wsx
- * @since 2021-04-23
+ * @since 2021-05-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -53,6 +53,8 @@ public class Problem implements Serializable {
     private Long acCount;
 
     private Long allCount;
+
+    private Boolean hidden;
 
 
 }

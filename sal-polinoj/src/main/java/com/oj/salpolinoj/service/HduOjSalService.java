@@ -286,7 +286,7 @@ public class HduOjSalService {
                         .map(o -> {
                             Elements children = o.children();
                             SubmitDTO submitDTO = new SubmitDTO();
-                            submitDTO.setSubmitTime(children.get(1).html());
+//                            submitDTO.setSubmitTime(children.get(1).html());
 
                             String status = Html2MdHelper.convert(children.get(2).html());
                             submitDTO.setStatus(SubmitStatus.converter(status).getCode());
@@ -326,7 +326,7 @@ public class HduOjSalService {
                         .map(o -> {
                             Elements children = o.children();
                             SubmitDTO submitDTO = new SubmitDTO();
-                            submitDTO.setSubmitTime(children.get(1).html());
+//                            submitDTO.setSubmitTime(children.get(1).html());
 
                             String status = Html2MdHelper.convert(children.get(2).html());
                             submitDTO.setStatus(SubmitStatus.converter(status).getCode());

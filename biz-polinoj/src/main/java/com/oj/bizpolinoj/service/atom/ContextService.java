@@ -3,6 +3,8 @@ package com.oj.bizpolinoj.service.atom;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.*;
 
+import java.util.List;
+
 public interface ContextService {
     ContextDTO createContext(ContextCreateDTO createDTO);
 
@@ -11,4 +13,5 @@ public interface ContextService {
     ContextDTO getContext(ContextGetDTO contextGetDTO);
 
     PageResult<ContextDTO> pageContext(ContextPageDTO pageDTO);
+
 }

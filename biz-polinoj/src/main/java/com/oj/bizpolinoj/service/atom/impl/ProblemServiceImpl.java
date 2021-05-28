@@ -1,5 +1,6 @@
 package com.oj.bizpolinoj.service.atom.impl;
 
+import com.oj.bizpolinoj.converter.SubmitConverter;
 import com.oj.commonpolinoj.consts.MinioConsts;
 import com.oj.commonpolinoj.enums.SubmitStatus;
 import com.oj.dalpolinoj.service.SubmitDAOService;
@@ -16,11 +17,8 @@ import com.oj.salpolinoj.service.PolinOjSandboxSalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
@@ -52,25 +50,23 @@ public class ProblemServiceImpl implements ProblemService {
         ProblemGetDTO problemGetDTO = new ProblemGetDTO();
         problemGetDTO.setProblemId(problemSubmitDTO.getProblemId());
         ProblemDTO problem = getProblem(problemGetDTO);
+
         if (OjName.HDU_NAME.equals(problem.getSource())) {
             SubmitDTO submitDTO = hduOjSalService.submitCode(problemSubmitDTO.getCode(),
                     problem.getSourceId());
             submitDTO.setProblemId(problemSubmitDTO.getProblemId());
             submitDTO.setCode(problemSubmitDTO.getCode());
             submitDTO.setUserId(problemSubmitDTO.getUserId());
-            return submitDAOService.createSubmitResultDTO(submitDTO);
+            return submitDAOService.createSubmit(submitDTO);
         } else if (OjName.POLIN_OJ.equals(problem.getSource())) {
-            SubmitDTO submitDTO = new SubmitDTO();
-            submitDTO.setProblemId(problemSubmitDTO.getProblemId());
-            submitDTO.setCode(problemSubmitDTO.getCode());
-            submitDTO.setUserId(problemSubmitDTO.getUserId());
+            SubmitDTO submitDTO = SubmitConverter.toSubmitDTO(problemSubmitDTO);
             submitDTO.setRunInfo("[]");
-            final SubmitDTO submitResultDTO = submitDAOService.createSubmitResultDTO(submitDTO);
+            final SubmitDTO submitResultDTO = submitDAOService.createSubmit(submitDTO);
 
             SubmitCodeMessage submitCodeMessage = new SubmitCodeMessage();
             // TODO 默认编译时间为20秒
             submitCodeMessage.setCcTimes(20L);
-            submitCodeMessage.setCode(Base64Utils.encodeToString(problemSubmitDTO.getCode().getBytes()));
+            submitCodeMessage.setCode(problemSubmitDTO.getCode());
             String path = MinioConsts.samplePath + "/" + problemSubmitDTO.getProblemId() + ".zip";
             submitCodeMessage.setCosPath(path);
             submitCodeMessage.setMemory(problem.getMemory());
