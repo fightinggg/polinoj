@@ -13,8 +13,7 @@ INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (4, 17, 
 INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (5, 22, 2);
 INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (6, 23, 2);
 INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (7, 24, 2);
-INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (8, 14, 3);
-INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (9, 15, 3);
-INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (10, 16, 3);
 INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (11, 17, 3);
 INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (12, 22, 3);
+INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (13, 75, 3);
+INSERT INTO polinoj.context_problem (id, problem_id, context_id) VALUES (14, 77, 3);

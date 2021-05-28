@@ -170,7 +170,7 @@ public class ContextBizServiceImpl implements ContextBizService {
                     long firstBloodTime = s.getValue().stream()
                             .mapToLong(ContextRankDTO.ProblemStateDTO::getAcceptTime)
                             .min()
-                            .orElse(Long.MAX_VALUE);
+                            .orElse(Long.MIN_VALUE);
                     return Pair.of(s.getKey(), firstBloodTime);
                 })
                 .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
