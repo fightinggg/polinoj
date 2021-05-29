@@ -39,7 +39,9 @@ public enum OJErrorCode {
     DOWNLOAD_FAILED("000-005-000-004", "下载失败"),
 
     // 000-006 context
-    CONTEXT_NOT_BEGIN("000-006-000-000", "比赛没有开始");
+    CONTEXT_NOT_BEGIN("000-006-000-000", "比赛没有开始"),
+    CONTEXT_NOT_EXIST("000-006-000-001", "比赛不存在"),
+    NO_JOIN_CONTEXT("000-006-000-002", "你没有报名这个比赛");
 
     String code;
 

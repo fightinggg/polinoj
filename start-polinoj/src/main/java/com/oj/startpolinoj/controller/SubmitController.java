@@ -36,10 +36,12 @@ public class SubmitController {
 
     @PostMapping
     @RateLimit(rate = 1, rateInterval = "60s", rateExpression = "${spring.ratelimiter.permin.submit.max}", customKeyFunction = "getSubmitProblemKey")
-    HttpResult<SubmitDTO> submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO, HttpServletRequest httpServletRequest) {
+    HttpResult<SubmitDTO> submitProblem(@RequestBody ProblemSubmitVO problemSubmitVO,
+                                        HttpServletRequest httpServletRequest) {
         UserDTO userDTO = (UserDTO) httpServletRequest.getSession().getAttribute(UserSessionName);
         ProblemSubmitDTO problemSubmitDTO = ProblemConverter.toProblemSubmitDTO(problemSubmitVO);
         problemSubmitDTO.setUserId(userDTO.getId());
+        problemSubmitDTO.setOperatorId(userDTO.getId());
         SubmitDTO submitDTO = submitBizService.submitProblem(problemSubmitDTO);
         return HttpResult.success(submitDTO);
     }

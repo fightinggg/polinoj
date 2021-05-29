@@ -26,7 +26,8 @@ public class UserController {
 
     @PostMapping
     @ApiOperation(value = "更新用户信息")
-    public HttpResult<UserVO> updateUser(@RequestBody UserUpdateVO userUpdateVO, HttpServletRequest httpServletRequest) {
+    public HttpResult<UserVO> updateUser(@RequestBody UserUpdateVO userUpdateVO,
+                                         HttpServletRequest httpServletRequest) {
         UserUpdateDTO userUpdateDTO = UserConverter.toUserUpdateDTO(userUpdateVO);
         UserDTO userDTO = userDAOService.updateUser(userUpdateDTO);
         UserVO userVO = UserConverter.toUserVO(userDTO);

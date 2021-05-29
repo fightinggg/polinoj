@@ -1,11 +1,12 @@
-package com.oj.commonpolinoj.dto;
+package com.oj.bizpolinoj.domain.bo;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ContextDTO {
+public class ContextBO {
+
     private Long id;
 
     private String name;
@@ -20,4 +21,7 @@ public class ContextDTO {
 
     private List<Long> problemId;
 
+    private Boolean join;
+
+    private Boolean star;
 }

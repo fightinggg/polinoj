@@ -2,6 +2,7 @@ package com.oj.bizpolinoj.service.biz.impl;
 
 import com.oj.bizpolinoj.converter.SubmitConverter;
 import com.oj.bizpolinoj.domain.bo.SubmitBO;
+import com.oj.bizpolinoj.service.atom.ContextJoinService;
 import com.oj.bizpolinoj.service.atom.ProblemService;
 import com.oj.bizpolinoj.service.atom.UserService;
 import com.oj.bizpolinoj.service.biz.SubmitBizService;
@@ -35,6 +36,8 @@ public class SubmitBizServiceImpl implements SubmitBizService {
     HduOjSalService hduOjSalService;
     @Autowired
     PolinOjSandboxSalService polinOjSandboxSalService;
+    @Autowired
+    ContextJoinService contextJoinService;
 
 
     @Override
@@ -62,6 +65,17 @@ public class SubmitBizServiceImpl implements SubmitBizService {
         if (problemSubmitDTO.getCode().length() < 50) {
             throw OJException.buildOJException(OJErrorCode.SUBMIT_CODE_TOO_SHORT);
         }
+
+        if (problemSubmitDTO.getContextId() != null) {
+            ContextJoinGetDTO contextJoinGetDTO = new ContextJoinGetDTO();
+            contextJoinGetDTO.setContextId(problemSubmitDTO.getContextId());
+            contextJoinGetDTO.setUserId(problemSubmitDTO.getOperatorId());
+            final ContextJoinDTO contextJoin = contextJoinService.getContextJoin(contextJoinGetDTO);
+            if (contextJoin == null) {
+                throw OJException.buildOJException(OJErrorCode.NO_JOIN_CONTEXT);
+            }
+        }
+
         return problemService.submitProblem(problemSubmitDTO);
     }
 

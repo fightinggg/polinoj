@@ -2,6 +2,7 @@ package com.oj.startpolinoj.convert;
 
 import com.google.common.collect.Lists;
 
+import com.oj.bizpolinoj.domain.bo.ContextBO;
 import com.oj.commonpolinoj.PageResult;
 import com.oj.commonpolinoj.dto.*;
 import com.oj.startpolinoj.vo.*;
@@ -9,7 +10,7 @@ import com.oj.startpolinoj.vo.*;
 import java.util.List;
 
 public class ContextConverter {
-    public static ContextCreateDTO toDTO(ContextCreateVO createVO) {
+    public static ContextCreateDTO toContextUpdateDTO(ContextCreateVO createVO) {
         ContextCreateDTO contextCreateDTO = new ContextCreateDTO();
         contextCreateDTO.setName(createVO.getName());
         contextCreateDTO.setBeginTime(createVO.getBeginTime());
@@ -19,19 +20,21 @@ public class ContextConverter {
         return contextCreateDTO;
     }
 
-    public static ContextVO toVO(ContextDTO context) {
+    public static ContextVO toContextVO(ContextDTO context) {
         ContextVO contextVO = new ContextVO();
         contextVO.setId(context.getId());
         contextVO.setName(context.getName());
         contextVO.setBeginTime(context.getBeginTime());
         contextVO.setEndTime(context.getEndTime());
+//        contextVO.setBeginTimeString();
+//        contextVO.setEndTimeString();
         contextVO.setOwnerId(context.getOwnerId());
         contextVO.setOwnerName(context.getOwnerName());
         contextVO.setProblemId(context.getProblemId());
         return contextVO;
     }
 
-    public static ContextUpdateDTO toDTO(ContextUpdateVO updateVO) {
+    public static ContextUpdateDTO toContextUpdateDTO(ContextUpdateVO updateVO) {
         ContextUpdateDTO contextUpdateDTO = new ContextUpdateDTO();
         contextUpdateDTO.setId(updateVO.getId());
         contextUpdateDTO.setName(updateVO.getName());
@@ -41,7 +44,7 @@ public class ContextConverter {
         return contextUpdateDTO;
     }
 
-    public static ContextPageDTO toPageDTO(ContextPageVO pageDTO) {
+    public static ContextPageDTO toContextPageDTO(ContextPageVO pageDTO) {
         ContextPageDTO contextPageDTO = new ContextPageDTO();
         contextPageDTO.setOwnerId(pageDTO.getOwnerId());
         contextPageDTO.setPageIndex(pageDTO.getPageIndex());
@@ -50,21 +53,21 @@ public class ContextConverter {
 
     }
 
-    public static PageResult<ContextVO> toPageVO(PageResult<ContextDTO> pageResult) {
-        PageResult<ContextVO> pageVOResult = new PageResult<>();
-        pageVOResult.setList(toListVO(pageResult.getList()));
-        pageVOResult.setPageSize(pageResult.getPageSize());
-        pageVOResult.setPageIndex(pageResult.getPageIndex());
-        pageVOResult.setTotal(pageResult.getTotal());
-        return pageVOResult;
-    }
+    public static ContextVO boToContextVO(ContextBO contextBO) {
+        ContextVO contextVO = new ContextVO();
+        contextVO.setId(contextBO.getId());
+        contextVO.setName(contextBO.getName());
+        contextVO.setBeginTime(contextBO.getBeginTime());
+        contextVO.setEndTime(contextBO.getEndTime());
+//        contextVO.setBeginTimeString();
+//        contextVO.setEndTimeString();
+        contextVO.setOwnerId(contextBO.getOwnerId());
+        contextVO.setOwnerName(contextBO.getOwnerName());
+        contextVO.setProblemId(contextBO.getProblemId());
+        contextVO.setJoin(contextBO.getJoin());
+        contextVO.setStar(contextBO.getStar());
+        return contextVO;
 
-    private static List<ContextVO> toListVO(List<ContextDTO> list) {
-        List<ContextVO> contextVOlist = Lists.newArrayList();
-        for (ContextDTO contextDTO : list) {
-            contextVOlist.add(toVO(contextDTO));
-        }
-        return contextVOlist;
     }
 
     public static List<ContextRankVO> toContextRankVOList(List<ContextRankDTO> contextRankDTOS) {

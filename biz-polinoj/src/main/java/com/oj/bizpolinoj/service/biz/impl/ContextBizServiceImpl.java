@@ -1,6 +1,9 @@
 package com.oj.bizpolinoj.service.biz.impl;
 
 import com.google.common.collect.Lists;
+import com.oj.bizpolinoj.converter.ContextConverter;
+import com.oj.bizpolinoj.domain.bo.ContextBO;
+import com.oj.bizpolinoj.service.atom.ContextJoinService;
 import com.oj.bizpolinoj.service.atom.ContextService;
 import com.oj.bizpolinoj.service.atom.UserService;
 import com.oj.bizpolinoj.service.biz.ContextBizService;
@@ -13,6 +16,7 @@ import com.oj.commonpolinoj.enums.SubmitStatus;
 import com.oj.dalpolinoj.service.SubmitDAOService;
 import org.apache.commons.collections4.ComparatorUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +37,8 @@ public class ContextBizServiceImpl implements ContextBizService {
     UserService userService;
     @Autowired
     SubmitDAOService submitService;
+    @Autowired
+    ContextJoinService contextJoinService;
 
     @Override
     public ContextDTO createContext(ContextCreateDTO createDTO) {
@@ -50,11 +56,20 @@ public class ContextBizServiceImpl implements ContextBizService {
         if (context.getBeginTime() > System.currentTimeMillis()) {
             throw OJException.buildOJException(OJErrorCode.CONTEXT_NOT_BEGIN);
         }
+
+        ContextJoinGetDTO contextJoinGetDTO = new ContextJoinGetDTO();
+        contextJoinGetDTO.setContextId(contextGetDTO.getId());
+        contextJoinGetDTO.setUserId(contextGetDTO.getOperatorId());
+        final ContextJoinDTO contextJoin = contextJoinService.getContextJoin(contextJoinGetDTO);
+        if (contextJoin == null) {
+            throw OJException.buildOJException(OJErrorCode.NO_JOIN_CONTEXT);
+        }
+
         return context;
     }
 
     @Override
-    public PageResult<ContextDTO> pageContext(ContextPageDTO pageDTO) {
+    public PageResult<ContextBO> pageContext(ContextPageDTO pageDTO) {
         if (pageDTO.getPageIndex() == null) {
             pageDTO.setPageIndex(1L);
         }
@@ -69,7 +84,18 @@ public class ContextBizServiceImpl implements ContextBizService {
             UserDTO user = userService.getUser(userGetDTO);
             list.get(i).setOwnerName(user.getUsername());
         }
-        return pageResult;
+
+        PageResult<ContextBO> boResult = PageResult.converterTo(pageResult, ContextConverter::toContextBO);
+
+        boResult.getList().forEach(contextBO -> {
+            ContextJoinGetDTO contextJoinGetDTO = new ContextJoinGetDTO();
+            contextJoinGetDTO.setContextId(contextBO.getId());
+            contextJoinGetDTO.setUserId(pageDTO.getOperatorId());
+            final ContextJoinDTO contextJoin = contextJoinService.getContextJoin(contextJoinGetDTO);
+            contextBO.setJoin(contextJoin != null);
+            contextBO.setStar(contextJoin != null && contextJoin.getStar());
+        });
+        return boResult;
     }
 
 
@@ -128,6 +154,12 @@ public class ContextBizServiceImpl implements ContextBizService {
         userGetDTO.setId(contextRankDTO.getUserId());
         UserDTO userDTO = userService.getUser(userGetDTO);
         contextRankDTO.setUserName(userDTO.getUsername());
+
+        ContextJoinGetDTO contextJoinGetDTO = new ContextJoinGetDTO();
+        contextJoinGetDTO.setContextId(contextDTO.getId());
+        contextJoinGetDTO.setUserId(userDTO.getId());
+        ContextJoinDTO contextJoinDTO = contextJoinService.getContextJoin(contextJoinGetDTO);
+        contextRankDTO.setStar(contextJoinDTO.getStar());
         return contextRankDTO;
     }
 
@@ -155,8 +187,8 @@ public class ContextBizServiceImpl implements ContextBizService {
         // rank
         IntStream.range(0, contextRankDTOS.size()).forEach(i -> contextRankDTOS.get(i).setRank(i + 1));
         IntStream.range(1, contextRankDTOS.size())
-                .mapToObj(i -> Pair.of(contextRankDTOS.get(i), contextRankDTOS.get(i - 1)))
-                .filter(e -> comparator.compare(e.getLeft(), e.getLeft()) == 0)
+                .mapToObj(i -> Pair.of(contextRankDTOS.get(i - 1), contextRankDTOS.get(i)))
+                .filter(e -> comparator.compare(e.getLeft(), e.getRight()) == 0)
                 .forEachOrdered(e -> e.getRight().setRank(e.getLeft().getRank()));
         // firstBlood
         final Map<Long, Long> problemToFirstBloodTime = contextRankDTOS.stream()
@@ -184,4 +216,22 @@ public class ContextBizServiceImpl implements ContextBizService {
         contextRankListDTO.setProblemSize((long) context.getProblemId().size());
         return contextRankListDTO;
     }
+
+    @Override
+    public ContextJoinDTO joinContext(ContextJoinCreateDTO contextJoinCreateDTO) {
+        ContextGetDTO contextGetDTO = new ContextGetDTO();
+        contextGetDTO.setId(contextJoinCreateDTO.getContextId());
+        final ContextDTO context = contextService.getContext(contextGetDTO);
+        if (context == null) {
+            throw OJException.buildOJException(OJErrorCode.CONTEXT_NOT_EXIST);
+        }
+
+        return contextJoinService.createContextJoin(contextJoinCreateDTO);
+    }
+
+    @Override
+    public ContextJoinDTO updateJoinContext(ContextJoinUpdateDTO contextJoinUpdateDTO) {
+        return contextJoinService.updateJoinContext(contextJoinUpdateDTO);
+    }
+
 }

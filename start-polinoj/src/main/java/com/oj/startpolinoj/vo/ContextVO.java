@@ -15,9 +15,17 @@ public class ContextVO {
 
     private Long endTime;
 
+    private String beginTimeString;
+
+    private String endTimeString;
+
     private Long ownerId;
 
     private String ownerName;
 
     private List<Long> problemId;
+
+    private Boolean join;
+
+    private Boolean star;
 }

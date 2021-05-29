@@ -9,4 +9,6 @@ public class ProblemSubmitDTO {
     String code;
     String lang;
     Long userId;
+
+    Long operatorId;
 }

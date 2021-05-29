@@ -8,4 +8,5 @@ public class ContextPageDTO {
 
     Long pageIndex;
     Long pageSize;
+    Long operatorId;
 }
